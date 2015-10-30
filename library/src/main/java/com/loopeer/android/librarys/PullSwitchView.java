@@ -177,12 +177,11 @@ public class PullSwitchView extends ViewGroup {
                 boolean moveUp = !moveDown;
 
                 if ((moveUp && mPullHandler.checkCanDoPullUp(this, mContent, mHeaderView, mFootView)) ||
-                        (moveDown && mPullHandler.checkCanDoPullDown(this, mContent, mHeaderView, mFootView))) {
+                        (moveDown && mPullHandler.checkCanDoPullDown(this, mContent, mHeaderView, mFootView)) ||
+                        mPullIndicator.hasLeftStartPosition()) {
                     movePos(offsetY);
-                } else {
-                    return dispatchTouchEventSupper(e);
+                    return true;
                 }
-                return true;
         }
         return dispatchTouchEventSupper(e);
     }

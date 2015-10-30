@@ -83,7 +83,7 @@ public class PullIndicator {
     }
 
     public boolean hasLeftStartPosition() {
-        return mCurrentPosY > POS_START;
+        return mCurrentPosY != POS_START;
     }
 
     public int getLastPosY() {
