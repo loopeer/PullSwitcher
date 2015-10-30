@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#333333"
+    tools:context=".MainActivity">
+
+    <com.loopeer.android.librarys.PullSwitchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dddddd"
+        android:id="@+id/switcher">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="土豆的"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="收到了关键是领导机构"
+                />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="a\ns\nl\ndg\nja\ns;ldgjsls\nl\ndg\nja\ns;ldgs\nl\ndg\nja\ns;ldgs\nl\ndg\nja\ns
+                ;ldgs\nl\nds\nl\ndg\nja\ns;ldgs\nl\ndg\nja\ns;ldgs\nl\ndg\nja\ns;ldgs\nl\ndg\nja\ns;ldgs\nl\ndg\nja\ns;ldgg\nja\ns;ldgdgjsldjg"/>
+
+            </ScrollView>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="我是底部"
+            />
+
+    </com.loopeer.android.librarys.PullSwitchView>
+
+</RelativeLayout>
