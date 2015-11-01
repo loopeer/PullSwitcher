@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.android.librarys.PullSwitchView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dddddd"
+    android:id="@+id/switcher">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下拉返回"/>
+
+    <ScrollView
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="222222222\nsldjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
+        jglsdjg\njg\njsldjglsdjg\njg\njjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
+        jglsdjg\njg\njsldjglsdjg\njg\njsldjg
+        jg\njsldjglsdjg\njg\njsldjglsdjg\nlsdjg\nsldjglsdjg\njg\njsldjglsdjg\n"
+            android:lineSpacingExtra="10dp"/>
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上拉加载"/>
+
+</com.loopeer.android.librarys.PullSwitchView>

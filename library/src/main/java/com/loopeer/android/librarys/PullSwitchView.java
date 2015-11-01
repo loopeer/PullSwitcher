@@ -155,9 +155,10 @@ public class PullSwitchView extends ViewGroup {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mPullIndicator.onRelease();
-                tryScrollBackToTop();
                 if (mPullIndicator.hasLeftStartPosition()) {
                     if (mPullIndicator.hasMovedAfterPressedDown()) {
+                        tryScrollBackToTop();
+                        mPullHandler.pullDownStartSwitch();
                         return true;
                     }
                     return dispatchTouchEventSupper(e);
@@ -170,7 +171,6 @@ public class PullSwitchView extends ViewGroup {
                 return true;
             case MotionEvent.ACTION_MOVE:
                 mPullIndicator.onMove(e.getX(), e.getY());
-                float offsetX = mPullIndicator.getOffsetX();
                 float offsetY = mPullIndicator.getOffsetY();
 
                 boolean moveDown = offsetY > 0;
@@ -193,6 +193,11 @@ public class PullSwitchView extends ViewGroup {
     private void movePos(float deltaY) {
 
         int to = mPullIndicator.getCurrentPosY() + (int) deltaY;
+
+        if ((to > 0 && mPullIndicator.getCurrentPosY() < 0) ||
+                (to < 0 && mPullIndicator.getCurrentPosY() > 0)){
+            to = 0;
+        }
 
         mPullIndicator.setCurrentPos(to);
         int change = to - mPullIndicator.getLastPosY();

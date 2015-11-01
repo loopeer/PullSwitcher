@@ -1,38 +1,27 @@
 package com.loopeer.android.librarys.pullswitcher;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ScrollView;
-
-import com.loopeer.android.librarys.PullDefaultHandler;
-import com.loopeer.android.librarys.PullHandler;
-import com.loopeer.android.librarys.PullSwitchView;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 
-public class MainActivity extends AppCompatActivity implements PullHandler {
+public class MainActivity extends AppCompatActivity {
 
-    ScrollView scrollView;
+    private FrameLayout containerLayout;
+    private DefaultSwitchFragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PullSwitchView pullSwitchView = (PullSwitchView) findViewById(R.id.switcher);
 
-        scrollView = (ScrollView) findViewById(R.id.scroll);
-
-        pullSwitchView.setPullHandler(this);
+        containerLayout = (FrameLayout) findViewById(R.id.container);
+        adapter = new DefaultSwitchFragmentAdapter(getSupportFragmentManager(), containerLayout);
     }
 
-    @Override
-    public boolean checkCanDoPullDown(PullSwitchView frame, View content, View header, View footer) {
-        return PullDefaultHandler.checkContentCanBePulledDown(frame, scrollView, header);
+    public void switchView() {
+        adapter.switchView(containerLayout);
     }
 
-    @Override
-    public boolean checkCanDoPullUp(PullSwitchView frame, View content, View header, View footer) {
-        return PullDefaultHandler.checkContentCanBePulledUp(frame, scrollView, header);
-    }
 }

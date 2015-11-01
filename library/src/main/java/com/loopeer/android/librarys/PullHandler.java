@@ -8,4 +8,8 @@ public interface PullHandler {
 
     public boolean checkCanDoPullUp(final PullSwitchView frame, final View content, final View header, final View footer);
 
+    public void pullDownStartSwitch();
+
+    public void pullUpStartSwitch();
+
 }
