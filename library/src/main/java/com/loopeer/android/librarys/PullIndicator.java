@@ -14,6 +14,7 @@ public class PullIndicator {
     private int mLastPos = 0;
     private int mHeaderHeight;
     private int mFooterHeight;
+    private int mStartSwitchOffset = 200;
 
     public int getContentHeight() {
         return mContentHeight;
@@ -128,5 +129,13 @@ public class PullIndicator {
 
     public boolean isAlreadyHere(int to) {
         return mCurrentPosY == to;
+    }
+
+    public int getStartSwitchOffset() {
+        return mStartSwitchOffset;
+    }
+
+    public void setStartSwitchOffset(int startSwitchOffset) {
+        this.mStartSwitchOffset = startSwitchOffset;
     }
 }

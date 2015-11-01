@@ -158,7 +158,7 @@ public class PullSwitchView extends ViewGroup {
                 if (mPullIndicator.hasLeftStartPosition()) {
                     if (mPullIndicator.hasMovedAfterPressedDown()) {
                         tryScrollBackToTop();
-                        mPullHandler.pullDownStartSwitch();
+                        tryToSwitch();
                         return true;
                     }
                     return dispatchTouchEventSupper(e);
@@ -215,10 +215,31 @@ public class PullSwitchView extends ViewGroup {
             return;
         }
 
+        applySwitchShowText();
+
         mHeaderView.offsetTopAndBottom(change);
         mContent.offsetTopAndBottom(change);
         mFootView.offsetTopAndBottom(change);
         invalidate();
+    }
+
+    private void applySwitchShowText() {
+        if (mPullIndicator.isInStartPosition()) return;
+        if (mPullIndicator.getCurrentPosY() > mPullIndicator.getStartSwitchOffset()) {
+            ((TextView) mHeaderView).setText("松开加载");
+        } else if (mPullIndicator.getCurrentPosY() > 0){
+            ((TextView) mHeaderView).setText("下拉加载上一页");
+        } else if (mPullIndicator.getCurrentPosY() < - mPullIndicator.getStartSwitchOffset()){
+            ((TextView) mFootView).setText("松开加载");
+        } else if (mPullIndicator.getCurrentPosY() < 0){
+            ((TextView) mFootView).setText("上拉加载下一页");
+        }
+    }
+
+    private void tryToSwitch() {
+        if (!mPullIndicator.isUnderTouch() && Math.abs(mPullIndicator.getCurrentPosY()) >= mPullIndicator.getStartSwitchOffset()) {
+            mPullHandler.pullDownStartSwitch();
+        }
     }
 
     private void tryScrollBackToTop() {
