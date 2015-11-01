@@ -1,5 +1,6 @@
 package com.loopeer.android.librarys;
 
+import android.app.Activity;
 import android.view.ViewGroup;
 
 
@@ -60,5 +61,13 @@ public class SwitcherHolder implements OnPageChangeListener {
     @Override
     public void onPrePage() {
         prePage();
+    }
+
+    public void doBack() {
+        if (mCurItem == 0) {
+            ((Activity) mContainer.getContext()).finish();
+        } else {
+            onPrePage();
+        }
     }
 }

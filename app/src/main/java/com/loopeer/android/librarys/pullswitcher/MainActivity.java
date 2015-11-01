@@ -26,4 +26,8 @@ public class MainActivity extends AppCompatActivity {
         mSwitchHolder.setAdapter(adapter);
     }
 
+    @Override
+    public void onBackPressed() {
+        mSwitchHolder.doBack();
+    }
 }

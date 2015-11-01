@@ -3,10 +3,10 @@ package com.loopeer.android.librarys.pullswitcher;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.loopeer.android.librarys.SwitchFragmenAdapter;
+import com.loopeer.android.librarys.SwitchFragmentAdapter;
 import com.loopeer.android.librarys.SwitcherHolder;
 
-public class TestSwitcherAdapter extends SwitchFragmenAdapter {
+public class TestSwitcherAdapter extends SwitchFragmentAdapter {
 
     public TestSwitcherAdapter(FragmentManager fm, SwitcherHolder mSwitchHolder) {
         super(fm);

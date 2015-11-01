@@ -5,20 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
-public abstract class SwitchFragmentAdapter {
-
+public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
     private static final String TAG = "FragmentPagerAdapter";
-    private static final boolean DEBUG = false;
 
     private final FragmentManager mFragmentManager;
-    private int mCurrentPosition;
-    private ViewGroup mContainer;
-    private boolean first = true;
 
-    public SwitchFragmentAdapter(FragmentManager fm, ViewGroup container) {
+    public SwitchFragmentAdapter(FragmentManager fm) {
         mFragmentManager = fm;
-        mContainer = container;
-        mCurrentPosition = 0;
     }
 
     /**
@@ -26,51 +19,53 @@ public abstract class SwitchFragmentAdapter {
      */
     public abstract Fragment getItem(int position);
 
-    public void initData() {
-        replaceContainer(0);
+    @Override
+    public void replaceItem(ViewGroup container, int prePosition, int newPosition) {
+        FragmentTransaction  mCurTransaction = mFragmentManager.beginTransaction();
+
+        if (prePosition == newPosition) {
+            Fragment fragment = createFragment(container, newPosition);
+            mCurTransaction.add(container.getId(), fragment, makeFragmentName(container.getId(), newPosition)).commit(); // 隐藏当前的fragment，add下一个到Activity中
+            return;
+        }
+        Fragment preFragment = createFragment(container, prePosition);
+        Fragment newFragment = createFragment(container, newPosition);
+        switchContent(container, preFragment, newFragment, prePosition, newPosition);
     }
 
-    public void switchView(ViewGroup container) {
-        if (mCurrentPosition == 0) {
-            replaceContainer(1);
-        } else {
-            replaceContainer(0);
-        }
-    }
-
-    private void replaceContainer(int postion) {
-        FragmentTransaction curTransaction = mFragmentManager.beginTransaction();
-
-        switch (postion) {
-            case 1:
-                curTransaction.setCustomAnimations(R.anim.in_from_bottom, R.anim.out_to_top,
-                        R.anim.in_from_top, R.anim.out_to_bottom);
-                break;
-            case 0:
-                curTransaction.setCustomAnimations(R.anim.in_from_top, R.anim.out_to_bottom,
-                        R.anim.in_from_top, R.anim.out_to_bottom);
-                break;
-        }
-
-        Fragment fragment = retrieveFromCache(postion);
+    private Fragment createFragment(ViewGroup container, int newPosition) {
+        Fragment fragment = retrieveFromCache(container, newPosition);
         if (null == fragment) {
             try {
-                fragment = getItem(postion);
-                curTransaction.addToBackStack(null);
+                return getItem(newPosition);
             } catch (Exception e) {
-                return;
+                return null;
             }
         }
-        curTransaction.replace(mContainer.getId(), fragment,
-                makeFragmentName(mContainer.getId(), postion));
-        curTransaction.commit();
-        mCurrentPosition = postion;
+        return fragment;
     }
 
-    private Fragment retrieveFromCache(int menuItem) {
+    public void switchContent(ViewGroup content, Fragment from, Fragment to, int prePosition, int newPosition) {
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        if (newPosition >= prePosition) {
+            transaction.setCustomAnimations(R.anim.in_from_bottom, R.anim.out_to_top,
+                    R.anim.in_from_top, R.anim.out_to_bottom);
+        } else {
+            transaction.setCustomAnimations(R.anim.in_from_top, R.anim.out_to_bottom,
+                    R.anim.in_from_top, R.anim.out_to_bottom);
+        }
+            if (!to.isAdded()) {
+                transaction.hide(from).add(content.getId(), to, makeFragmentName(content.getId(), newPosition)).commit();
+            } else {
+                transaction.hide(from).show(to).commit();
+            }
+
+    }
+
+    private Fragment retrieveFromCache(ViewGroup view, int menuItem) {
         if (mFragmentManager.getFragments() == null) return null;
         for (Fragment backFragment : mFragmentManager.getFragments()) {
-            String name = makeFragmentName(mContainer.getId(), menuItem);
+            String name = makeFragmentName(view.getId(), menuItem);
             if (null != backFragment
                     && name.equals(backFragment.getTag())) {
                 return backFragment;
@@ -79,25 +74,11 @@ public abstract class SwitchFragmentAdapter {
         return null;
     }
 
-    /**
-     * Return a unique identifier for the item at the given position.
-     * <p/>
-     * <p>The default implementation returns the given position.
-     * Subclasses should override this method if the positions of items can change.</p>
-     *
-     * @param position Position within this adapter
-     * @return Unique identifier for the item at position
-     */
     public long getItemId(int position) {
         return position;
     }
 
-    public int getCurrentPosition() {
-        return mCurrentPosition;
-    }
-
-    private static String makeFragmentName(int viewId, long id) {
+    private static String makeFragmentName(int viewId, int id) {
         return "android:switcher:" + viewId + ":" + id;
     }
-
 }
