@@ -40,7 +40,7 @@ public class PullSwitchView extends ViewGroup {
     protected void onFinishInflate() {
         final int childCount = getChildCount();
         if (childCount > 3) {
-            throw new IllegalStateException("PtrFrameLayout only can host 2 elements");
+            throw new IllegalStateException("PtrFrameLayout only can host 3 elements");
         } else if (childCount == 3) {
             if (mContent == null || mHeaderView == null) {
                 View child1 = getChildAt(0);
@@ -238,7 +238,11 @@ public class PullSwitchView extends ViewGroup {
 
     private void tryToSwitch() {
         if (!mPullIndicator.isUnderTouch() && Math.abs(mPullIndicator.getCurrentPosY()) >= mPullIndicator.getStartSwitchOffset()) {
-            mPullHandler.pullDownStartSwitch();
+            if (mPullIndicator.getCurrentPosY() > 0) {
+                mPullHandler.pullDownStartSwitch();
+            } else {
+                mPullHandler.pullUpStartSwitch();
+            }
         }
     }
 

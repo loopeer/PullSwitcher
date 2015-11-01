@@ -18,10 +18,10 @@ public class DefaultSwitchFragmentAdapter extends SwitchFragmentAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = TestFragment1.newInstance();
+                fragment = TestFragment1.newInstance(null);
                 break;
             case 1:
-                fragment = TestFragment2.newInstance();
+                fragment = TestFragment2.newInstance(null);
                 break;
             default:
                 fragment = null;

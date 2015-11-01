@@ -7,14 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.loopeer.android.librarys.OnPageChangeListener;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
 
 public class TestFragment2 extends Fragment implements PullHandler{
 
-    public static TestFragment2 newInstance() {
+    private OnPageChangeListener onPageChangeListener;
+
+    public static TestFragment2 newInstance(OnPageChangeListener onPageChange) {
         TestFragment2 testFragment = new TestFragment2();
+        testFragment.onPageChangeListener = onPageChange;
         return testFragment;
     }
 
@@ -44,11 +48,11 @@ public class TestFragment2 extends Fragment implements PullHandler{
 
     @Override
     public void pullDownStartSwitch() {
-        ((MainActivity) getActivity()).switchView();
+        onPageChangeListener.onPrePage();
     }
 
     @Override
     public void pullUpStartSwitch() {
-        ((MainActivity) getActivity()).switchView();
+        onPageChangeListener.onNextPage();
     }
 }

@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import com.loopeer.android.librarys.SwitcherAdapter;
+import com.loopeer.android.librarys.SwitcherHolder;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private FrameLayout containerLayout;
-    private DefaultSwitchFragmentAdapter adapter;
+    private SwitcherAdapter adapter;
+    private SwitcherHolder mSwitchHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         containerLayout = (FrameLayout) findViewById(R.id.container);
-        adapter = new DefaultSwitchFragmentAdapter(getSupportFragmentManager(), containerLayout);
-    }
-
-    public void switchView() {
-        adapter.switchView(containerLayout);
+        mSwitchHolder = new SwitcherHolder(containerLayout);
+        adapter = new TestSwitcherAdapter(getSupportFragmentManager(), mSwitchHolder);
+        mSwitchHolder.setAdapter(adapter);
     }
 
 }

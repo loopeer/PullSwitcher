@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.loopeer.android.librarys.PullSwitchView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dddddd"
-    android:id="@+id/switcher">
+    android:background="#dddddd">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="下拉返回"/>
+        android:text="下拉返回" />
 
     <ScrollView
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1111111111\nsldjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10dp"
+                android:text="1111111111\nsldjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
         jglsdjg\njg\njsldjglsdjg\njg\njjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
         jglsdjg\njg\njsldjglsdjg\njg\njsldjg
-        jg\njsldjglsdjg\njg\njsldjglsdjg\nlsdjg\nsldjglsdjg\njg\njsldjglsdjg\n"
-            android:lineSpacingExtra="10dp"/>
+        jg\njsldjglsdjg\njg\njsldjglsdjg\nlsdjg\nsldjglsdjg\njg\njsldjglsdjg\n" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </ScrollView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="上拉加载"/>
+        android:text="上拉加载" />
 
 
 </com.loopeer.android.librarys.PullSwitchView>
