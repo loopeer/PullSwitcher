@@ -173,17 +173,20 @@ public class PullSwitchView extends ViewGroup {
                 mPullIndicator.onMove(e.getX(), e.getY());
                 float offsetY = mPullIndicator.getOffsetY();
 
-                boolean moveDown = offsetY > 0;
-                boolean moveUp = !moveDown;
-
-                if ((moveUp && mPullHandler.checkCanDoPullUp(this, mContent, mHeaderView, mFootView)) ||
-                        (moveDown && mPullHandler.checkCanDoPullDown(this, mContent, mHeaderView, mFootView)) ||
-                        mPullIndicator.hasLeftStartPosition()) {
+                if (canMovePos(offsetY)) {
                     movePos(offsetY);
                     return true;
                 }
         }
         return dispatchTouchEventSupper(e);
+    }
+
+    private boolean canMovePos(float offsetY) {
+        boolean moveDown = offsetY > 0;
+        boolean moveUp = !moveDown;
+        return (moveUp && mPullHandler.checkCanDoPullUp(this, mContent, mHeaderView, mFootView)) ||
+                        (moveDown && mPullHandler.checkCanDoPullDown(this, mContent, mHeaderView, mFootView)) ||
+                        mPullIndicator.hasLeftStartPosition();
     }
 
     public boolean dispatchTouchEventSupper(MotionEvent e) {
@@ -194,14 +197,17 @@ public class PullSwitchView extends ViewGroup {
 
         int to = mPullIndicator.getCurrentPosY() + (int) deltaY;
 
-        if ((to > 0 && mPullIndicator.getCurrentPosY() < 0) ||
-                (to < 0 && mPullIndicator.getCurrentPosY() > 0)){
+        if (isReDirect(to)){
             to = 0;
         }
 
         mPullIndicator.setCurrentPos(to);
         int change = to - mPullIndicator.getLastPosY();
         updatePos(change);
+    }
+
+    private boolean isReDirect(int to) {
+        return Math.abs(to + mPullIndicator.getCurrentPosY()) < Math.abs(to) + Math.abs(mPullIndicator.getCurrentPosY());
     }
 
     private void updatePos(int change) {
@@ -326,7 +332,6 @@ public class PullSwitchView extends ViewGroup {
 
             mLastFlingY = 0;
 
-            // fix #47: Scroller should be reused, https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/issues/47
             if (!mScroller.isFinished()) {
                 mScroller.forceFinished(true);
             }
