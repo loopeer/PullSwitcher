@@ -1,6 +1,6 @@
 # PullSwitcher
 
-This library is learn the moving method of layout from [liaohuqiu/android-Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh) and learn the 
+This library is learn from [liaohuqiu/android-Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh) and learn the 
 pull to next layout effect from [zzz40500/Android-PullToNextLayout](https://github.com/zzz40500/Android-PullToNextLayout)
 
 Screeshot
