@@ -8,9 +8,8 @@ import com.loopeer.android.librarys.SwitcherHolder;
 
 public class TestSwitcherAdapter extends SwitchFragmentAdapter {
 
-    public TestSwitcherAdapter(FragmentManager fm, SwitcherHolder mSwitchHolder) {
-        super(fm);
-        setOnPageChangeListener(mSwitchHolder);
+    public TestSwitcherAdapter(FragmentManager fm, SwitcherHolder switchHolder) {
+        super(fm, switchHolder);
     }
 
     @Override

@@ -10,8 +10,9 @@ public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
 
     private final FragmentManager mFragmentManager;
 
-    public SwitchFragmentAdapter(FragmentManager fm) {
+    public SwitchFragmentAdapter(FragmentManager fm, SwitcherHolderImpl switcherHolder) {
         mFragmentManager = fm;
+        setOnPageChangeListener(switcherHolder);
     }
 
     /**
