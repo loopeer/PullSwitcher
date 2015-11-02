@@ -9,7 +9,8 @@ Screeshot
 
 Usage
 ====
-First, add SwitcherHolder and fragment switcher adapter.
+###1. Add adapter and holder in activity
+
 ```java
     private SwitcherAdapter adapter;
     private SwitcherHolder mSwitchHolder;
@@ -54,7 +55,9 @@ public class TestSwitcherAdapter extends SwitchFragmentAdapter {
     }
 }
 ```
-Last, we must create our cutom fragment. you can create the single fragment or view by the **PullSwitchView**, add the layout. set the **PullSwitchView**as your layou which layout you want to move. PullSwitchView can host only one direct child. And the footer and header must implements FooterImpl or HeaderImpl. The pullSwitchView will add header and footer for you by default. But you can set your custom view which must implements the Impl.
+###2. Create cutom fragment
+
+You can create the single fragment or view by the **PullSwitchView**, add the layout. set the **PullSwitchView**as your layou which layout you want to move. PullSwitchView can host only one direct child. And the footer and header must implements FooterImpl or HeaderImpl. The pullSwitchView will add header and footer for you by default. But you can set your custom view which must implements the Impl.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <com.loopeer.android.librarys.PullSwitchView xmlns:android="http://schemas.android.com/apk/res/android"
