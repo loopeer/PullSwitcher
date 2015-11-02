@@ -203,8 +203,8 @@ public class PullSwitchView extends ViewGroup {
     private boolean canMovePos(float offsetY) {
         boolean moveDown = offsetY > 0;
         boolean moveUp = !moveDown;
-        return (moveUp && mPullHandler.checkCanDoPullUp(this, mContent, mHeaderView, mFootView)) ||
-                        (moveDown && mPullHandler.checkCanDoPullDown(this, mContent, mHeaderView, mFootView)) ||
+        return (moveUp && mPullHandler.checkCanDoPullUp(mContent)) ||
+                        (moveDown && mPullHandler.checkCanDoPullDown(mContent)) ||
                         mPullIndicator.hasLeftStartPosition();
     }
 

@@ -4,9 +4,9 @@ import android.view.View;
 
 public interface PullHandler {
 
-    public boolean checkCanDoPullDown(final PullSwitchView frame, final View content, final View header, final View footer);
+    public boolean checkCanDoPullDown(final View content);
 
-    public boolean checkCanDoPullUp(final PullSwitchView frame, final View content, final View header, final View footer);
+    public boolean checkCanDoPullUp(final View content);
 
     public void pullDownStartSwitch();
 

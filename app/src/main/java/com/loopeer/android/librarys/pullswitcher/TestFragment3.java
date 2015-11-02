@@ -16,7 +16,7 @@ import com.loopeer.android.librarys.PullSwitchView;
 public class TestFragment3 extends Fragment implements PullHandler {
 
     private OnPageChangeListener onPageChangeListener;
-    PullSwitchView pullSwitchView;
+    private PullSwitchView pullSwitchView;
 
     public static TestFragment3 newInstance(OnPageChangeListener onPageChange) {
         TestFragment3 testFragment = new TestFragment3();
@@ -49,13 +49,13 @@ public class TestFragment3 extends Fragment implements PullHandler {
     }
 
     @Override
-    public boolean checkCanDoPullDown(PullSwitchView frame, View content, View header, View footer) {
-        return PullDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+    public boolean checkCanDoPullDown(View content) {
+        return PullDefaultHandler.checkContentCanBePulledDown(content);
     }
 
     @Override
-    public boolean checkCanDoPullUp(PullSwitchView frame, View content, View header, View footer) {
-        return PullDefaultHandler.checkContentCanBePulledUp(frame, content, header);
+    public boolean checkCanDoPullUp(View content) {
+        return PullDefaultHandler.checkContentCanBePulledUp(content);
     }
 
     @Override

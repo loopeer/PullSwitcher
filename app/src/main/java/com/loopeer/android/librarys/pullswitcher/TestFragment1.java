@@ -50,13 +50,13 @@ public class TestFragment1 extends Fragment implements PullHandler {
     }
 
     @Override
-    public boolean checkCanDoPullDown(PullSwitchView frame, View content, View header, View footer) {
-        return PullDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+    public boolean checkCanDoPullDown(View content) {
+        return PullDefaultHandler.checkContentCanBePulledDown(content);
     }
 
     @Override
-    public boolean checkCanDoPullUp(PullSwitchView frame, View content, View header, View footer) {
-        return PullDefaultHandler.checkContentCanBePulledUp(frame, content, header);
+    public boolean checkCanDoPullUp(View content) {
+        return PullDefaultHandler.checkContentCanBePulledUp(content);
     }
 
     @Override

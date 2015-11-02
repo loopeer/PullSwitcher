@@ -37,21 +37,21 @@ public abstract class PullDefaultHandler implements PullHandler {
         }
     }
 
-    public static boolean checkContentCanBePulledDown(PullSwitchView frame, View content, View header) {
+    public static boolean checkContentCanBePulledDown(View content) {
         return !canChildScrollUp(content);
     }
 
-    public static boolean checkContentCanBePulledUp(PullSwitchView frame, View content, View header) {
+    public static boolean checkContentCanBePulledUp(View content) {
         return !canChildScrollDown(content);
     }
 
     @Override
-    public boolean checkCanDoPullDown(PullSwitchView frame, View content, View header, View footer) {
-        return checkContentCanBePulledDown(frame, content, header);
+    public boolean checkCanDoPullDown(View content) {
+        return checkContentCanBePulledDown(content);
     }
 
     @Override
-    public boolean checkCanDoPullUp(PullSwitchView frame, View content, View header, View footer) {
-        return checkContentCanBePulledUp(frame, content, header);
+    public boolean checkCanDoPullUp(View content) {
+        return checkContentCanBePulledUp(content);
     }
 }
