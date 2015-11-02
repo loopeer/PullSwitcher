@@ -1,23 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.loopeer.android.librarys.PullSwitchView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/switcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dddddd"
-    android:id="@+id/switcher">
+    android:background="#dddddd">
 
     <ScrollView
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="222222222\nsldjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
-        jglsdjg\njg\njsldjglsdjg\njg\njjg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsldjglsdjg\njg\njsld
-        jglsdjg\njg\njsldjglsdjg\njg\njsldjg
-        jg\njsldjglsdjg\njg\njsldjglsdjg\nlsdjg\nsldjglsdjg\njg\njsldjglsdjg\n"
-            android:lineSpacingExtra="10dp"/>
+            android:orientation="vertical"
+            android:padding="@dimen/list_horizontal_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeightSmall"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="name: " />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    tools:text="lsdgjsdg" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?listPreferredItemHeightSmall"
+                android:layout_marginTop="@dimen/list_horizontal_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="password: " />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    tools:text="lsdgjsdg" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"/>
+
+        </LinearLayout>
 
     </ScrollView>
 

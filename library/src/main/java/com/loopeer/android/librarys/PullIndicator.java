@@ -18,6 +18,7 @@ public class PullIndicator {
     private HeaderImpl mHeaderImpl;
     private FooterImpl mFooterImpl;
     private ShowText mShowText;
+    private SwitcherHolderImpl mSwitchHolderImpl;
 
     public int getContentHeight() {
         return mContentHeight;
@@ -145,14 +146,18 @@ public class PullIndicator {
     public void applyMoveStatus() {
         if (isInStartPosition()) return;
         if (getCurrentPosY() > getStartSwitchOffset()) {
-            mHeaderImpl.onCanStartSwitch(getCurrentPosY(), mShowText.headerSwitchTiptext);
+            mHeaderImpl.onCanStartSwitch(getCurrentPosY(), getStartSwitchOffset(), mShowText.headerSwitchTiptext);
         } else if (getCurrentPosY() > 0){
-            mHeaderImpl.onMoveStart(getCurrentPosY(), mShowText.headerStarttext);
+            mHeaderImpl.onMoveStart(getCurrentPosY(), getStartSwitchOffset(), mShowText.headerStarttext);
         } else if (getCurrentPosY() < - getStartSwitchOffset()){
-            mFooterImpl.onCanStartSwitch(getCurrentPosY(), mShowText.footerSwitchTiptext);
+            mFooterImpl.onCanStartSwitch(getCurrentPosY(), getStartSwitchOffset(), mShowText.footerSwitchTiptext);
         } else if (getCurrentPosY() < 0){
-            mFooterImpl.onMoveStart(getCurrentPosY(), mShowText.footerStarttext);
+            mFooterImpl.onMoveStart(getCurrentPosY(), getStartSwitchOffset(), mShowText.footerStarttext);
         }
+    }
+
+    public boolean hasArrivedTheSwitchOffset() {
+        return Math.abs(getCurrentPosY()) >= getStartSwitchOffset();
     }
 
     public FooterImpl getFooterImpl() {
@@ -173,6 +178,10 @@ public class PullIndicator {
 
     public void setShowText(ShowText showText) {
         mShowText = showText;
+    }
+
+    public void setSwitchHolderImpl(SwitcherHolderImpl switchHolderImpl) {
+        mSwitchHolderImpl = switchHolderImpl;
     }
 
     public static class ShowText {

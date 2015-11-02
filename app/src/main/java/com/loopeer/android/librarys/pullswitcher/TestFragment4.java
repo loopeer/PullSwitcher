@@ -12,53 +12,39 @@ import android.view.ViewGroup;
 import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
-import com.loopeer.android.librarys.PullIndicator;
-import com.loopeer.android.librarys.PullSwitchView;
 
-public class TestFragment1 extends Fragment implements PullHandler {
+public class TestFragment4 extends Fragment implements PullHandler {
 
     private SwitcherHolderImpl onPageChangeListener;
-    private PullSwitchView pullSwitchView;
+
+    private int position;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static TestFragment1 newInstance(SwitcherHolderImpl onPageChange) {
-        TestFragment1 testFragment = new TestFragment1();
+    public static TestFragment4 newInstance(SwitcherHolderImpl onPageChange, int position) {
+        TestFragment4 testFragment = new TestFragment4();
         testFragment.onPageChangeListener = onPageChange;
+        testFragment.position = position;
         return testFragment;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_fragment1, container, false);
+        return inflater.inflate(R.layout.fragment_fragment4, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initSwitchView(view);
         initTestRecyclerView(view);
-    }
-
-    private void initSwitchView(View view) {
-        pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
-        pullSwitchView.setPullHandler(this);
-        pullSwitchView.setSwitcherHolder(onPageChangeListener);
-        initShowText();
-
-    }
-
-    private void initShowText() {
-        pullSwitchView.setShowText(new PullIndicator.ShowText(
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_first),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_first),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_start_show),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_can_switch_show)
-        ));
     }
 
     @Override

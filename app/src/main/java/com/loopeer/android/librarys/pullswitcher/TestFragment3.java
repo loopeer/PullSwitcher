@@ -2,23 +2,30 @@ package com.loopeer.android.librarys.pullswitcher;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.OnPageChangeListener;
-import com.loopeer.android.librarys.PullDefaultHandler;
+import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullIndicator;
 import com.loopeer.android.librarys.PullSwitchView;
 
-public class TestFragment3 extends Fragment implements PullHandler {
+import java.util.List;
 
-    private OnPageChangeListener onPageChangeListener;
+public class TestFragment3 extends Fragment {
+
+    private SwitcherHolderImpl onPageChangeListener;
     private PullSwitchView pullSwitchView;
 
-    public static TestFragment3 newInstance(OnPageChangeListener onPageChange) {
+    private TestPagerAdapter mAdapter;
+    private ViewPager mViewpager;
+    private TabLayout mTabs;
+
+    public static TestFragment3 newInstance(SwitcherHolderImpl onPageChange) {
         TestFragment3 testFragment = new TestFragment3();
         testFragment.onPageChangeListener = onPageChange;
         return testFragment;
@@ -34,8 +41,46 @@ public class TestFragment3 extends Fragment implements PullHandler {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initSwitchView(view);
+
+        mViewpager = (ViewPager) view.findViewById(R.id.viewpager);
+        mTabs = (TabLayout) view.findViewById(R.id.tabs);
+        mAdapter = new TestPagerAdapter(getChildFragmentManager(), onPageChangeListener);
+        mViewpager.setAdapter(mAdapter);
+        mTabs.setupWithViewPager(mViewpager);
+        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setCurrentPullHandler(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void setCurrentPullHandler(int position) {
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        Fragment resultFragment = null;
+        for (Fragment fragment : fragments) {
+            if (((TestFragment4)fragment).getPosition() == position) {
+                resultFragment = fragment;
+            }
+        }
+        if (resultFragment == null) resultFragment = fragments.get(0);
+        pullSwitchView.setPullHandler((PullHandler) resultFragment);
+    }
+
+    private void initSwitchView(View view) {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
-        pullSwitchView.setPullHandler(this);
+        pullSwitchView.setSwitcherHolder(onPageChangeListener);
         initShowText();
     }
 
@@ -48,23 +93,4 @@ public class TestFragment3 extends Fragment implements PullHandler {
         ));
     }
 
-    @Override
-    public boolean checkCanDoPullDown(View content) {
-        return PullDefaultHandler.checkContentCanBePulledDown(content);
-    }
-
-    @Override
-    public boolean checkCanDoPullUp(View content) {
-        return PullDefaultHandler.checkContentCanBePulledUp(content);
-    }
-
-    @Override
-    public void pullDownStartSwitch() {
-        onPageChangeListener.onPrePage();
-    }
-
-    @Override
-    public void pullUpStartSwitch() {
-        onPageChangeListener.onNextPage();
-    }
 }

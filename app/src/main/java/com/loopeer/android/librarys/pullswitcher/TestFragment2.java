@@ -7,16 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.OnPageChangeListener;
+import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
 
 public class TestFragment2 extends Fragment implements PullHandler{
 
-    private OnPageChangeListener onPageChangeListener;
+    private SwitcherHolderImpl onPageChangeListener;
 
-    public static TestFragment2 newInstance(OnPageChangeListener onPageChange) {
+    public static TestFragment2 newInstance(SwitcherHolderImpl onPageChange) {
         TestFragment2 testFragment = new TestFragment2();
         testFragment.onPageChangeListener = onPageChange;
         return testFragment;
@@ -34,6 +34,7 @@ public class TestFragment2 extends Fragment implements PullHandler{
 
         PullSwitchView pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setPullHandler(this);
+        pullSwitchView.setSwitcherHolder(onPageChangeListener);
     }
 
     @Override

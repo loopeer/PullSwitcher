@@ -24,12 +24,12 @@ public class DefaultHeader extends TextView implements HeaderImpl {
     }
 
     @Override
-    public void onMoveStart(int currentPosY, CharSequence string) {
+    public void onMoveStart(int currentPosY, int startSwitchOffset, CharSequence string) {
         setText(string);
     }
 
     @Override
-    public void onCanStartSwitch(int currentPosY, CharSequence string) {
+    public void onCanStartSwitch(int currentPosY, int startSwitchOffset, CharSequence string) {
         setText(string);
     }
 }

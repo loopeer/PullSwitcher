@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.view.ViewGroup;
 
 
-public class SwitcherHolder implements OnPageChangeListener {
+public class SwitcherHolder implements SwitcherHolderImpl {
 
     private ViewGroup mContainer;
     private SwitcherAdapter mAdapter;
@@ -61,6 +61,16 @@ public class SwitcherHolder implements OnPageChangeListener {
     @Override
     public void onPrePage() {
         prePage();
+    }
+
+    @Override
+    public boolean isLastPage() {
+        return mCurItem == mAdapter.getCount() - 1;
+    }
+
+    @Override
+    public boolean isFirstPage() {
+        return mCurItem == 0;
     }
 
     public void doBack() {

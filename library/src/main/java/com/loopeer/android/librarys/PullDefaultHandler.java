@@ -54,4 +54,5 @@ public abstract class PullDefaultHandler implements PullHandler {
     public boolean checkCanDoPullUp(View content) {
         return checkContentCanBePulledUp(content);
     }
+
 }

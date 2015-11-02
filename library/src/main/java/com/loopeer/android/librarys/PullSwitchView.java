@@ -16,8 +16,9 @@ public class PullSwitchView extends ViewGroup {
     private PullIndicator mPullIndicator;
     private ScrollChecker mScrollChecker;
     private PullHandler mPullHandler;
+    private SwitcherHolderImpl mSwitcherHolder;
 
-    private int mDurationToCloseHeader = 1000;
+    private int mDurationToCloseHeader = 500;
 
     public PullSwitchView(Context context) {
         this(context, null);
@@ -176,7 +177,6 @@ public class PullSwitchView extends ViewGroup {
                 mPullIndicator.onRelease();
                 if (mPullIndicator.hasLeftStartPosition()) {
                     if (mPullIndicator.hasMovedAfterPressedDown()) {
-                        tryScrollBackToTop();
                         tryToSwitch();
                         return true;
                     }
@@ -201,6 +201,7 @@ public class PullSwitchView extends ViewGroup {
     }
 
     private boolean canMovePos(float offsetY) {
+        if (mPullHandler == null) return false;
         boolean moveDown = offsetY > 0;
         boolean moveUp = !moveDown;
         return (moveUp && mPullHandler.checkCanDoPullUp(mContent)) ||
@@ -253,6 +254,22 @@ public class PullSwitchView extends ViewGroup {
             } else {
                 mPullHandler.pullUpStartSwitch();
             }
+            checkFirstOrLastToCancelDelay();
+        } else {
+            tryScrollBackToTop();
+        }
+    }
+
+    private void checkFirstOrLastToCancelDelay() {
+        if (!mSwitcherHolder.isFirstPage() && !mSwitcherHolder.isLastPage()) {
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    tryScrollBackToTop();
+                }
+            }, getResources().getInteger(R.integer.pull_switch_millms));
+        } else {
+            tryScrollBackToTop();
         }
     }
 
@@ -260,6 +277,11 @@ public class PullSwitchView extends ViewGroup {
         if (!mPullIndicator.isUnderTouch()) {
             mScrollChecker.tryToScrollTo(mPullIndicator.POS_START, mDurationToCloseHeader);
         }
+    }
+
+    public void setSwitcherHolder(SwitcherHolderImpl switcherHolder) {
+        mSwitcherHolder = switcherHolder;
+        mPullIndicator.setSwitchHolderImpl(mSwitcherHolder);
     }
 
     public void setPullHandler(PullHandler ptrHandler) {

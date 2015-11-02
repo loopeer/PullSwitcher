@@ -25,12 +25,12 @@ public class DefaultFooter extends TextView implements FooterImpl {
     }
 
     @Override
-    public void onMoveStart(int currentPosY, final CharSequence string) {
+    public void onMoveStart(int currentPosY, int startSwitchOffset, final CharSequence string) {
         setText(string.toString());
     }
 
     @Override
-    public void onCanStartSwitch(int currentPosY, final CharSequence string) {
+    public void onCanStartSwitch(int currentPosY, int startSwitchOffset, final CharSequence string) {
         setText(string.toString());
     }
 }

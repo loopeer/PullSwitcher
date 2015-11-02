@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         containerLayout = (FrameLayout) findViewById(R.id.container);
-
         mSwitchHolder = new SwitcherHolder(containerLayout);
         adapter = new TestSwitcherAdapter(getSupportFragmentManager(), mSwitchHolder);
         mSwitchHolder.setAdapter(adapter);
