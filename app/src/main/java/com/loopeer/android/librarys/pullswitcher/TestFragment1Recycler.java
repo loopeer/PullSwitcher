@@ -9,13 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
-import com.loopeer.android.librarys.PullIndicator;
 import com.loopeer.android.librarys.PullSwitchView;
+import com.loopeer.android.librarys.SwitcherHolderImpl;
 
-public class TestFragment1 extends Fragment implements PullHandler {
+public class TestFragment1Recycler extends Fragment implements PullHandler {
 
     private SwitcherHolderImpl onPageChangeListener;
     private PullSwitchView pullSwitchView;
@@ -24,8 +23,8 @@ public class TestFragment1 extends Fragment implements PullHandler {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static TestFragment1 newInstance(SwitcherHolderImpl onPageChange) {
-        TestFragment1 testFragment = new TestFragment1();
+    public static TestFragment1Recycler newInstance(SwitcherHolderImpl onPageChange) {
+        TestFragment1Recycler testFragment = new TestFragment1Recycler();
         testFragment.onPageChangeListener = onPageChange;
         return testFragment;
     }
@@ -48,17 +47,6 @@ public class TestFragment1 extends Fragment implements PullHandler {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setPullHandler(this);
         pullSwitchView.setSwitcherHolder(onPageChangeListener);
-        initShowText();
-
-    }
-
-    private void initShowText() {
-        pullSwitchView.setShowText(new PullIndicator.ShowText(
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_first),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_first),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_start_show),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_can_switch_show)
-        ));
     }
 
     @Override

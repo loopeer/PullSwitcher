@@ -12,12 +12,12 @@ import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
 
-public class TestFragment2 extends Fragment implements PullHandler{
+public class TestFragment2Scroll extends Fragment implements PullHandler{
 
     private SwitcherHolderImpl onPageChangeListener;
 
-    public static TestFragment2 newInstance(SwitcherHolderImpl onPageChange) {
-        TestFragment2 testFragment = new TestFragment2();
+    public static TestFragment2Scroll newInstance(SwitcherHolderImpl onPageChange) {
+        TestFragment2Scroll testFragment = new TestFragment2Scroll();
         testFragment.onPageChangeListener = onPageChange;
         return testFragment;
     }

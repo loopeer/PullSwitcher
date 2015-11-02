@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">library</string>
 
     <string name="pull_header_start_show">继续下拉返回上一页</string>
     <string name="pull_header_can_switch_show">松手返回上一页</string>

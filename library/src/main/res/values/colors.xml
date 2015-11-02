@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <color name="switcher_color_hint">#B8B8B8</color><!-- 默认文字 未输入内容按钮颜色-->
+
+</resources>

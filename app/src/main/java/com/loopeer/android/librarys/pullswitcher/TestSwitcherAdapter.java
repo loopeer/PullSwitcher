@@ -18,13 +18,13 @@ public class TestSwitcherAdapter extends SwitchFragmentAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = TestFragment1.newInstance(getSwitcherHolder());
+                fragment = TestFragment1Recycler.newInstance(getSwitcherHolder());
                 break;
             case 1:
-                fragment = TestFragment2.newInstance(getSwitcherHolder());
+                fragment = TestFragment2Scroll.newInstance(getSwitcherHolder());
                 break;
             case 2:
-                fragment = TestFragment3.newInstance(getSwitcherHolder());
+                fragment = TestFragment3ViewPager.newInstance(getSwitcherHolder());
                 break;
             default:
                 fragment = null;

@@ -35,7 +35,7 @@ public class PullSwitchView extends ViewGroup {
         super(context, attrs, defStyleAttr);
 
         mPullIndicator = new PullIndicator();
-        initShowText();
+        initShowText(null);
         mScrollChecker = new ScrollChecker();
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
@@ -300,6 +300,7 @@ public class PullSwitchView extends ViewGroup {
     }
 
     public void setSwitcherHolder(SwitcherHolderImpl switcherHolder) {
+        if (mSwitcherHolder == null) initShowText(switcherHolder);
         mSwitcherHolder = switcherHolder;
         mPullIndicator.setSwitchHolderImpl(mSwitcherHolder);
     }
@@ -350,12 +351,12 @@ public class PullSwitchView extends ViewGroup {
         mPullIndicator.setShowText(showText);
     }
 
-    private void initShowText() {
+    private void initShowText(SwitcherHolderImpl switcherHolder) {
         setShowText(new PullIndicator.ShowText(
-                getResources().getString(R.string.pull_header_start_show),
-                getResources().getString(R.string.pull_header_can_switch_show),
-                getResources().getString(R.string.pull_footer_start_show),
-                getResources().getString(R.string.pull_footer_can_switch_show)
+                getResources().getString(switcherHolder != null && switcherHolder.isFirstPage() ? R.string.pull_header_first : R.string.pull_header_start_show),
+                getResources().getString(switcherHolder != null && switcherHolder.isFirstPage() ? R.string.pull_header_first : R.string.pull_header_can_switch_show),
+                getResources().getString(switcherHolder != null && switcherHolder.isLastPage() ? R.string.pull_footer_last : R.string.pull_footer_start_show),
+                getResources().getString(switcherHolder != null && switcherHolder.isLastPage() ? R.string.pull_footer_last : R.string.pull_footer_can_switch_show)
                 ));
     }
 
@@ -443,8 +444,6 @@ public class PullSwitchView extends ViewGroup {
                 if (!mScroller.isFinished()) {
                     mScroller.forceFinished(true);
                 }
-
-
                 reset();
             }
         }

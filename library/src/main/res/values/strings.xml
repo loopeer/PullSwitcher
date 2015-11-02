@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">library</string>
 
     <string name="pull_header_start_show">keep pull down to go back</string>
     <string name="pull_header_can_switch_show">Let go back</string>

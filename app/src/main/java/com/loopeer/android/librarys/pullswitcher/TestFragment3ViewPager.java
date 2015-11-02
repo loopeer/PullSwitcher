@@ -9,14 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullHandler;
-import com.loopeer.android.librarys.PullIndicator;
 import com.loopeer.android.librarys.PullSwitchView;
+import com.loopeer.android.librarys.SwitcherHolderImpl;
 
 import java.util.List;
 
-public class TestFragment3 extends Fragment {
+public class TestFragment3ViewPager extends Fragment {
 
     private SwitcherHolderImpl onPageChangeListener;
     private PullSwitchView pullSwitchView;
@@ -25,8 +24,8 @@ public class TestFragment3 extends Fragment {
     private ViewPager mViewpager;
     private TabLayout mTabs;
 
-    public static TestFragment3 newInstance(SwitcherHolderImpl onPageChange) {
-        TestFragment3 testFragment = new TestFragment3();
+    public static TestFragment3ViewPager newInstance(SwitcherHolderImpl onPageChange) {
+        TestFragment3ViewPager testFragment = new TestFragment3ViewPager();
         testFragment.onPageChangeListener = onPageChange;
         return testFragment;
     }
@@ -42,7 +41,10 @@ public class TestFragment3 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initSwitchView(view);
+        initPagerTabs(view);
+    }
 
+    private void initPagerTabs(View view) {
         mViewpager = (ViewPager) view.findViewById(R.id.viewpager);
         mTabs = (TabLayout) view.findViewById(R.id.tabs);
         mAdapter = new TestPagerAdapter(getChildFragmentManager(), onPageChangeListener);
@@ -51,7 +53,6 @@ public class TestFragment3 extends Fragment {
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -64,6 +65,21 @@ public class TestFragment3 extends Fragment {
 
             }
         });
+
+        mViewpager.post(new Runnable() {
+            @Override
+            public void run() {
+                setCurrentPullHandler(0);
+            }
+        });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setCurrentPullHandler(mViewpager.getCurrentItem());
+        }
     }
 
     private void setCurrentPullHandler(int position) {
@@ -82,16 +98,6 @@ public class TestFragment3 extends Fragment {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setSwitcherHolder(onPageChangeListener);
         pullSwitchView.disableWhenHorizontalMove(true);
-        initShowText();
-    }
-
-    private void initShowText() {
-        pullSwitchView.setShowText(new PullIndicator.ShowText(
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_start_show),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_can_switch_show),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_start_show),
-                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_can_switch_show)
-        ));
     }
 
 }
