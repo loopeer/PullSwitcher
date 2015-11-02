@@ -6,13 +6,14 @@ import android.view.Gravity;
 import android.widget.TextView;
 
 public class DefaultFooter extends TextView implements FooterImpl {
+    private static final String TAG = "DefaultFooter";
 
     public DefaultFooter(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public DefaultFooter(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public DefaultFooter(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -24,12 +25,12 @@ public class DefaultFooter extends TextView implements FooterImpl {
     }
 
     @Override
-    public void onMoveStart(int currentPosY, CharSequence string) {
-        this.setText(string);
+    public void onMoveStart(int currentPosY, final CharSequence string) {
+        setText(string.toString());
     }
 
     @Override
-    public void onCanStartSwitch(int currentPosY, CharSequence string) {
-        this.setText(string);
+    public void onCanStartSwitch(int currentPosY, final CharSequence string) {
+        setText(string.toString());
     }
 }

@@ -8,11 +8,11 @@ import android.widget.TextView;
 public class DefaultHeader extends TextView implements HeaderImpl {
 
     public DefaultHeader(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public DefaultHeader(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public DefaultHeader(Context context, AttributeSet attrs, int defStyleAttr) {

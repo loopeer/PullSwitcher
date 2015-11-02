@@ -10,12 +10,14 @@ import android.view.ViewGroup;
 import com.loopeer.android.librarys.OnPageChangeListener;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
+import com.loopeer.android.librarys.PullIndicator;
 import com.loopeer.android.librarys.PullSwitchView;
 
 
 public class TestFragment1 extends Fragment implements PullHandler {
 
     private OnPageChangeListener onPageChangeListener;
+    PullSwitchView pullSwitchView;
 
     public static TestFragment1 newInstance(OnPageChangeListener onPageChange) {
         TestFragment1 testFragment = new TestFragment1();
@@ -33,8 +35,18 @@ public class TestFragment1 extends Fragment implements PullHandler {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        PullSwitchView pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
+        pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setPullHandler(this);
+        initShowText();
+    }
+
+    private void initShowText() {
+        pullSwitchView.setShowText(new PullIndicator.ShowText(
+                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_first),
+                getResources().getString(com.loopeer.android.librarys.R.string.pull_header_first),
+                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_start_show),
+                getResources().getString(com.loopeer.android.librarys.R.string.pull_footer_can_switch_show)
+        ));
     }
 
     @Override

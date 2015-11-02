@@ -145,13 +145,13 @@ public class PullIndicator {
     public void applyMoveStatus() {
         if (isInStartPosition()) return;
         if (getCurrentPosY() > getStartSwitchOffset()) {
-            mFooterImpl.onCanStartSwitch(getCurrentPosY(), mShowText.footerSwitchTiptext);
-        } else if (getCurrentPosY() > 0){
-            mFooterImpl.onMoveStart(getCurrentPosY(), mShowText.footerStarttext);
-        } else if (getCurrentPosY() < - getStartSwitchOffset()){
             mHeaderImpl.onCanStartSwitch(getCurrentPosY(), mShowText.headerSwitchTiptext);
-        } else if (getCurrentPosY() < 0){
+        } else if (getCurrentPosY() > 0){
             mHeaderImpl.onMoveStart(getCurrentPosY(), mShowText.headerStarttext);
+        } else if (getCurrentPosY() < - getStartSwitchOffset()){
+            mFooterImpl.onCanStartSwitch(getCurrentPosY(), mShowText.footerSwitchTiptext);
+        } else if (getCurrentPosY() < 0){
+            mFooterImpl.onMoveStart(getCurrentPosY(), mShowText.footerStarttext);
         }
     }
 
@@ -175,13 +175,14 @@ public class PullIndicator {
         mShowText = showText;
     }
 
-    static class ShowText {
+    public static class ShowText {
         String headerStarttext;
         String headerSwitchTiptext;
         String footerStarttext;
         String footerSwitchTiptext;
 
-        public ShowText(String headerStarttext, String headerSwitchTiptext, String footerStarttext, String footerSwitchTiptext) {
+        public ShowText(String headerStarttext, String headerSwitchTiptext,
+                        String footerStarttext, String footerSwitchTiptext) {
             this.headerStarttext = headerStarttext;
             this.headerSwitchTiptext = headerSwitchTiptext;
             this.footerStarttext = footerStarttext;
