@@ -5,11 +5,6 @@
     android:background="#dddddd"
     android:id="@+id/switcher">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="下拉返回"/>
-
     <ScrollView
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,10 +20,5 @@
             android:lineSpacingExtra="10dp"/>
 
     </ScrollView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="上拉加载"/>
 
 </com.loopeer.android.librarys.PullSwitchView>

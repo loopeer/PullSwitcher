@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">library</string>
+
+    <string name="pull_header_start_show">keep pull down to go back</string>
+    <string name="pull_header_can_switch_show">Let go back</string>
+    <string name="pull_footer_start_show">keep pull up to go next page</string>
+    <string name="pull_footer_can_switch_show">Let go to next page</string>
+    <string name="pull_header_first">Already first one</string>
+    <string name="pull_footer_last">No more</string>
+
 </resources>

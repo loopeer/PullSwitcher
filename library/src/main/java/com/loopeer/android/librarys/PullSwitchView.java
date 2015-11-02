@@ -2,12 +2,10 @@ package com.loopeer.android.librarys;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Scroller;
-import android.widget.TextView;
 
 public class PullSwitchView extends ViewGroup {
     public static final String TAG = "PullSwitchView";
@@ -33,6 +31,7 @@ public class PullSwitchView extends ViewGroup {
         super(context, attrs, defStyleAttr);
 
         mPullIndicator = new PullIndicator();
+        initShowText();
         mScrollChecker = new ScrollChecker();
     }
 
@@ -40,35 +39,55 @@ public class PullSwitchView extends ViewGroup {
     protected void onFinishInflate() {
         final int childCount = getChildCount();
         if (childCount > 3) {
-            throw new IllegalStateException("PtrFrameLayout only can host 3 elements");
-        } else if (childCount == 3) {
-            if (mContent == null || mHeaderView == null) {
-                View child1 = getChildAt(0);
-                View child2 = getChildAt(1);
-                View child3 = getChildAt(2);
-                if (mContent == null && mHeaderView == null) {
-                    mHeaderView = child1;
-                    mContent = child2;
-                    mFootView = child3;
-                }
-            }
-        } else if (childCount == 1) {
-            mContent = getChildAt(0);
+            throw new IllegalStateException("PullSwitchView only can host 3 elements");
         } else {
-            TextView errorView = new TextView(getContext());
-            errorView.setClickable(true);
-            errorView.setTextColor(0xffff6600);
-            errorView.setGravity(Gravity.CENTER);
-            errorView.setTextSize(20);
-            errorView.setText("The content view in PtrFrameLayout is empty. Do you forget to specify its id in xml layout file?");
-            mContent = errorView;
-            addView(mContent);
+            createViews();
         }
         if (mHeaderView != null) {
             mHeaderView.bringToFront();
         }
 
         super.onFinishInflate();
+    }
+
+    private void createViews() {
+        final int childCount = getChildCount();
+        int contentNumCount = 0;
+        for (int i = 0; i < childCount; i++) {
+            View view = getChildAt(i);
+            if (view instanceof HeaderImpl) {
+                mHeaderView = view;
+                continue;
+            }
+            if (view instanceof FooterImpl) {
+                mFootView = view;
+                continue;
+            }
+            contentNumCount++;
+            mContent = view;
+        }
+
+        if (mHeaderView == null) {
+            createDefaultHeader();
+        }
+        if (mFootView == null) {
+            createDefaultFooter();
+        }
+
+        if (contentNumCount == 0) {
+            throw new IllegalStateException("PullSwitchView must have one content view");
+        } else if (contentNumCount > 1) {
+            throw new IllegalStateException("PullSwitchView can host only one direct child, " +
+                    "and the footer and header must implements FooterImpl or HeaderImpl");
+        }
+    }
+
+    private void createDefaultFooter() {
+        setFooterView(new DefaultFooter(getContext()));
+    }
+
+    private void createDefaultHeader() {
+        setHeaderView(new DefaultHeader(getContext()));
     }
 
     @Override
@@ -224,16 +243,7 @@ public class PullSwitchView extends ViewGroup {
     }
 
     private void applySwitchShowText() {
-        if (mPullIndicator.isInStartPosition()) return;
-        if (mPullIndicator.getCurrentPosY() > mPullIndicator.getStartSwitchOffset()) {
-            ((TextView) mHeaderView).setText("松开加载");
-        } else if (mPullIndicator.getCurrentPosY() > 0){
-            ((TextView) mHeaderView).setText("下拉加载上一页");
-        } else if (mPullIndicator.getCurrentPosY() < - mPullIndicator.getStartSwitchOffset()){
-            ((TextView) mFootView).setText("松开加载");
-        } else if (mPullIndicator.getCurrentPosY() < 0){
-            ((TextView) mFootView).setText("上拉加载下一页");
-        }
+        mPullIndicator.applyMoveStatus();
     }
 
     private void tryToSwitch() {
@@ -254,6 +264,53 @@ public class PullSwitchView extends ViewGroup {
 
     public void setPullHandler(PullHandler ptrHandler) {
         mPullHandler = ptrHandler;
+    }
+
+    public void setHeaderView(View header) {
+        if (!(header instanceof HeaderImpl)) {
+            throw new IllegalStateException("header must implements HeaderImpl");
+        }
+        if (mHeaderView != null && header != null && mHeaderView != header) {
+            removeView(mHeaderView);
+        }
+        ViewGroup.LayoutParams lp = header.getLayoutParams();
+        if (lp == null) {
+            lp = new LayoutParams(-1, -2);
+            header.setLayoutParams(lp);
+        }
+        mHeaderView = header;
+        mPullIndicator.setHeaderImpl((HeaderImpl) mHeaderView);
+        addView(header);
+    }
+
+    public void setFooterView(View footer) {
+        if (!(footer instanceof FooterImpl)) {
+            throw new IllegalStateException("footer must implements FooterImpl");
+        }
+        if (mFootView != null && footer != null && mFootView != footer) {
+            removeView(mFootView);
+        }
+        ViewGroup.LayoutParams lp = footer.getLayoutParams();
+        if (lp == null) {
+            lp = new LayoutParams(-1, -2);
+            footer.setLayoutParams(lp);
+        }
+        mFootView = footer;
+        mPullIndicator.setFooterImpl((FooterImpl) mFootView);
+        addView(footer);
+    }
+
+    public void setShowText(PullIndicator.ShowText showText) {
+        mPullIndicator.setShowText(showText);
+    }
+
+    private void initShowText() {
+        setShowText(new PullIndicator.ShowText(
+                getResources().getString(R.string.pull_header_start_show),
+                getResources().getString(R.string.pull_header_can_switch_show),
+                getResources().getString(R.string.pull_footer_start_show),
+                getResources().getString(R.string.pull_footer_can_switch_show)
+                ));
     }
 
     @Override

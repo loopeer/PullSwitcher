@@ -15,6 +15,9 @@ public class PullIndicator {
     private int mHeaderHeight;
     private int mFooterHeight;
     private int mStartSwitchOffset = 200;
+    private HeaderImpl mHeaderImpl;
+    private FooterImpl mFooterImpl;
+    private ShowText mShowText;
 
     public int getContentHeight() {
         return mContentHeight;
@@ -137,5 +140,52 @@ public class PullIndicator {
 
     public void setStartSwitchOffset(int startSwitchOffset) {
         this.mStartSwitchOffset = startSwitchOffset;
+    }
+
+    public void applyMoveStatus() {
+        if (isInStartPosition()) return;
+        if (getCurrentPosY() > getStartSwitchOffset()) {
+            mFooterImpl.onCanStartSwitch(getCurrentPosY(), mShowText.footerSwitchTiptext);
+        } else if (getCurrentPosY() > 0){
+            mFooterImpl.onMoveStart(getCurrentPosY(), mShowText.footerStarttext);
+        } else if (getCurrentPosY() < - getStartSwitchOffset()){
+            mHeaderImpl.onCanStartSwitch(getCurrentPosY(), mShowText.headerSwitchTiptext);
+        } else if (getCurrentPosY() < 0){
+            mHeaderImpl.onMoveStart(getCurrentPosY(), mShowText.headerStarttext);
+        }
+    }
+
+    public FooterImpl getFooterImpl() {
+        return mFooterImpl;
+    }
+
+    public void setFooterImpl(FooterImpl footerImpl) {
+        this.mFooterImpl = footerImpl;
+    }
+
+    public HeaderImpl getHeaderImpl() {
+        return mHeaderImpl;
+    }
+
+    public void setHeaderImpl(HeaderImpl headerImpl) {
+        this.mHeaderImpl = headerImpl;
+    }
+
+    public void setShowText(ShowText showText) {
+        mShowText = showText;
+    }
+
+    static class ShowText {
+        String headerStarttext;
+        String headerSwitchTiptext;
+        String footerStarttext;
+        String footerSwitchTiptext;
+
+        public ShowText(String headerStarttext, String headerSwitchTiptext, String footerStarttext, String footerSwitchTiptext) {
+            this.headerStarttext = headerStarttext;
+            this.headerSwitchTiptext = headerSwitchTiptext;
+            this.footerStarttext = footerStarttext;
+            this.footerSwitchTiptext = footerSwitchTiptext;
+        }
     }
 }

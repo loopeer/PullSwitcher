@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">library</string>
+
+    <string name="pull_header_start_show">继续下拉返回上一页</string>
+    <string name="pull_header_can_switch_show">松手返回上一页</string>
+    <string name="pull_footer_start_show">继续上拉进入下一页</string>
+    <string name="pull_footer_can_switch_show">松手进入下一页</string>
+    <string name="pull_header_first">已经是第一页了</string>
+    <string name="pull_footer_last">没有更多页面了</string>
+
+</resources>
