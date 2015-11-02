@@ -81,6 +81,7 @@ public class TestFragment3 extends Fragment {
     private void initSwitchView(View view) {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setSwitcherHolder(onPageChangeListener);
+        pullSwitchView.disableWhenHorizontalMove(true);
         initShowText();
     }
 

@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 
 public abstract class SwitcherAdapter {
 
-    protected SwitcherHolderImpl switcherHolder;
+    private SwitcherHolderImpl switcherHolder;
 
     public abstract void replaceItem(ViewGroup container, int prePosition, int newPosition);
 
@@ -12,6 +12,10 @@ public abstract class SwitcherAdapter {
 
     public void setOnPageChangeListener(SwitcherHolderImpl listener) {
         this.switcherHolder = listener;
+    }
+
+    public SwitcherHolderImpl getSwitcherHolder() {
+        return switcherHolder;
     }
 
  }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
@@ -17,8 +18,10 @@ public class PullSwitchView extends ViewGroup {
     private ScrollChecker mScrollChecker;
     private PullHandler mPullHandler;
     private SwitcherHolderImpl mSwitcherHolder;
-
-    private int mDurationToCloseHeader = 500;
+    private boolean mDisableWhenHorizontalMove = false;
+    private boolean mPreventForHorizontal = false;
+    private int mPagingTouchSlop;
+    private int mDurationToCloseHeader = getResources().getInteger(R.integer.pull_switch_millms);
 
     public PullSwitchView(Context context) {
         this(context, null);
@@ -34,6 +37,9 @@ public class PullSwitchView extends ViewGroup {
         mPullIndicator = new PullIndicator();
         initShowText();
         mScrollChecker = new ScrollChecker();
+
+        final ViewConfiguration conf = ViewConfiguration.get(getContext());
+        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
     }
 
     @Override
@@ -186,11 +192,25 @@ public class PullSwitchView extends ViewGroup {
                 }
             case MotionEvent.ACTION_DOWN:
                 mPullIndicator.onPressDown(e.getX(), e.getY());
+                mScrollChecker.abortIfWorking();
+
+                mPreventForHorizontal = false;
+
                 dispatchTouchEventSupper(e);
                 return true;
             case MotionEvent.ACTION_MOVE:
                 mPullIndicator.onMove(e.getX(), e.getY());
                 float offsetY = mPullIndicator.getOffsetY();
+                float offsetX = mPullIndicator.getOffsetX();
+
+                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
+                    if (mPullIndicator.isInStartPosition()) {
+                        mPreventForHorizontal = true;
+                    }
+                }
+                if (mPreventForHorizontal) {
+                    return dispatchTouchEventSupper(e);
+                }
 
                 if (canMovePos(offsetY)) {
                     movePos(offsetY);
@@ -286,6 +306,10 @@ public class PullSwitchView extends ViewGroup {
 
     public void setPullHandler(PullHandler ptrHandler) {
         mPullHandler = ptrHandler;
+    }
+
+    public void disableWhenHorizontalMove(boolean disable) {
+        mDisableWhenHorizontalMove = disable;
     }
 
     public void setHeaderView(View header) {
