@@ -106,7 +106,7 @@ Make fragment implements **PullHandler**.To concrete some method as:
 ```
 **checkContentCanBePulledDown(View view)** The view set is which view you want to observe. The wrapper will onLayout by the view scroll status.
 
-If you want go back by press the back key, you should add this:
+If you want go back by press the back key, you should add this in activity:
 ```java
     @Override
     public void onBackPressed() {
