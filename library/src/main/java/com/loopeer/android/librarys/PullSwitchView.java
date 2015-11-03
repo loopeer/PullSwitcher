@@ -270,9 +270,9 @@ public class PullSwitchView extends ViewGroup {
     private void tryToSwitch() {
         if (!mPullIndicator.isUnderTouch() && Math.abs(mPullIndicator.getCurrentPosY()) >= mPullIndicator.getStartSwitchOffset()) {
             if (mPullIndicator.getCurrentPosY() > 0) {
-                mPullHandler.pullDownStartSwitch();
+                mSwitcherHolder.onPrePage();
             } else {
-                mPullHandler.pullUpStartSwitch();
+                mSwitcherHolder.onNextPage();
             }
             checkFirstOrLastToCancelDelay();
         } else {

@@ -7,18 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
+import com.loopeer.android.librarys.SwitcherHolderImpl;
 
-public class TestFragment2Scroll extends Fragment implements PullHandler{
+public class TestFragment2Scroll extends Fragment implements PullHandler {
 
-    private SwitcherHolderImpl onPageChangeListener;
+    private SwitcherHolderImpl switcherHolder;
 
-    public static TestFragment2Scroll newInstance(SwitcherHolderImpl onPageChange) {
+    public static TestFragment2Scroll newInstance(SwitcherHolderImpl switcherHolder) {
         TestFragment2Scroll testFragment = new TestFragment2Scroll();
-        testFragment.onPageChangeListener = onPageChange;
+        testFragment.switcherHolder = switcherHolder;
         return testFragment;
     }
 
@@ -34,7 +34,7 @@ public class TestFragment2Scroll extends Fragment implements PullHandler{
 
         PullSwitchView pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setPullHandler(this);
-        pullSwitchView.setSwitcherHolder(onPageChangeListener);
+        pullSwitchView.setSwitcherHolder(switcherHolder);
     }
 
     @Override
@@ -47,13 +47,4 @@ public class TestFragment2Scroll extends Fragment implements PullHandler{
         return PullDefaultHandler.checkContentCanBePulledUp(content);
     }
 
-    @Override
-    public void pullDownStartSwitch() {
-        onPageChangeListener.onPrePage();
-    }
-
-    @Override
-    public void pullUpStartSwitch() {
-        onPageChangeListener.onNextPage();
-    }
 }

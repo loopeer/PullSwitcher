@@ -9,13 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.SwitcherHolderImpl;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 
 public class TestFragment4 extends Fragment implements PullHandler {
-
-    private SwitcherHolderImpl onPageChangeListener;
 
     private int position;
 
@@ -23,9 +20,8 @@ public class TestFragment4 extends Fragment implements PullHandler {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static TestFragment4 newInstance(SwitcherHolderImpl onPageChange, int position) {
+    public static TestFragment4 newInstance(int position) {
         TestFragment4 testFragment = new TestFragment4();
-        testFragment.onPageChangeListener = onPageChange;
         testFragment.position = position;
         return testFragment;
     }
@@ -55,16 +51,6 @@ public class TestFragment4 extends Fragment implements PullHandler {
     @Override
     public boolean checkCanDoPullUp(View content) {
         return PullDefaultHandler.checkContentCanBePulledUp(mRecyclerView);
-    }
-
-    @Override
-    public void pullDownStartSwitch() {
-        onPageChangeListener.onPrePage();
-    }
-
-    @Override
-    public void pullUpStartSwitch() {
-        onPageChangeListener.onNextPage();
     }
 
     private void initTestRecyclerView(View view) {

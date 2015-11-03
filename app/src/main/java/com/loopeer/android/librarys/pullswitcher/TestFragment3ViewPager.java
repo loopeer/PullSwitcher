@@ -17,16 +17,16 @@ import java.util.List;
 
 public class TestFragment3ViewPager extends Fragment {
 
-    private SwitcherHolderImpl onPageChangeListener;
+    private SwitcherHolderImpl switcherHolder;
     private PullSwitchView pullSwitchView;
 
     private TestPagerAdapter mAdapter;
     private ViewPager mViewpager;
     private TabLayout mTabs;
 
-    public static TestFragment3ViewPager newInstance(SwitcherHolderImpl onPageChange) {
+    public static TestFragment3ViewPager newInstance(SwitcherHolderImpl switcherHolder) {
         TestFragment3ViewPager testFragment = new TestFragment3ViewPager();
-        testFragment.onPageChangeListener = onPageChange;
+        testFragment.switcherHolder = switcherHolder;
         return testFragment;
     }
 
@@ -47,7 +47,7 @@ public class TestFragment3ViewPager extends Fragment {
     private void initPagerTabs(View view) {
         mViewpager = (ViewPager) view.findViewById(R.id.viewpager);
         mTabs = (TabLayout) view.findViewById(R.id.tabs);
-        mAdapter = new TestPagerAdapter(getChildFragmentManager(), onPageChangeListener);
+        mAdapter = new TestPagerAdapter(getChildFragmentManager());
         mViewpager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mViewpager);
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -96,7 +96,7 @@ public class TestFragment3ViewPager extends Fragment {
 
     private void initSwitchView(View view) {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
-        pullSwitchView.setSwitcherHolder(onPageChangeListener);
+        pullSwitchView.setSwitcherHolder(switcherHolder);
         pullSwitchView.disableWhenHorizontalMove(true);
     }
 

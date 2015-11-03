@@ -4,19 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.loopeer.android.librarys.SwitcherHolderImpl;
-
 public class TestPagerAdapter extends FragmentPagerAdapter {
-    private SwitcherHolderImpl onPageChangeListener;
 
-    public TestPagerAdapter(FragmentManager fm, SwitcherHolderImpl onPageChangeListener) {
+    public TestPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.onPageChangeListener = onPageChangeListener;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return TestFragment4.newInstance(onPageChangeListener, position);
+        return TestFragment4.newInstance(position);
     }
 
     @Override

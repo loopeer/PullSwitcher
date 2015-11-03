@@ -16,16 +16,16 @@ import com.loopeer.android.librarys.SwitcherHolderImpl;
 
 public class TestFragment1Recycler extends Fragment implements PullHandler {
 
-    private SwitcherHolderImpl onPageChangeListener;
+    private SwitcherHolderImpl switcherHolder;
     private PullSwitchView pullSwitchView;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static TestFragment1Recycler newInstance(SwitcherHolderImpl onPageChange) {
+    public static TestFragment1Recycler newInstance(SwitcherHolderImpl switcherHolder) {
         TestFragment1Recycler testFragment = new TestFragment1Recycler();
-        testFragment.onPageChangeListener = onPageChange;
+        testFragment.switcherHolder = switcherHolder;
         return testFragment;
     }
 
@@ -46,7 +46,7 @@ public class TestFragment1Recycler extends Fragment implements PullHandler {
     private void initSwitchView(View view) {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setPullHandler(this);
-        pullSwitchView.setSwitcherHolder(onPageChangeListener);
+        pullSwitchView.setSwitcherHolder(switcherHolder);
     }
 
     @Override
@@ -57,16 +57,6 @@ public class TestFragment1Recycler extends Fragment implements PullHandler {
     @Override
     public boolean checkCanDoPullUp(View content) {
         return PullDefaultHandler.checkContentCanBePulledUp(mRecyclerView);
-    }
-
-    @Override
-    public void pullDownStartSwitch() {
-        onPageChangeListener.onPrePage();
-    }
-
-    @Override
-    public void pullUpStartSwitch() {
-        onPageChangeListener.onNextPage();
     }
 
     private void initTestRecyclerView(View view) {
