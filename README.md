@@ -103,16 +103,6 @@ Make fragment implements **PullHandler**.To concrete some method as:
     public boolean checkCanDoPullUp(View content) {
         return PullDefaultHandler.checkContentCanBePulledUp(mRecyclerView);
     }
-
-    @Override
-    public void pullDownStartSwitch() {
-        onPageChangeListener.onPrePage();
-    }
-
-    @Override
-    public void pullUpStartSwitch() {
-        onPageChangeListener.onNextPage();
-    }
 ```
 **checkContentCanBePulledDown(View view)** The view set is which view you want to observe. The wrapper will onLayout by the view scroll status.
 
