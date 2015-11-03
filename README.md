@@ -1,7 +1,7 @@
 # PullSwitcher
 
 This library is learn from [liaohuqiu/android-Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh) and learn the 
-pull to next layout effect from [zzz40500/Android-PullToNextLayout](https://github.com/zzz40500/Android-PullToNextLayout)
+pull to next layout effect from [zzz40500/Android-PullToNextLayout](https://github.com/zzz40500/Android-PullToNextLayout), this fragments adapter make the fragment hide or show in the activity. So, you can keep data in those.
 
 Screeshot
 ====
@@ -57,7 +57,7 @@ public class TestSwitcherAdapter extends SwitchFragmentAdapter {
 ```
 ###2. Create cutom fragment
 
-You can create the single fragment or view by the **PullSwitchView**, add the layout. set the **PullSwitchView**as your layou which layout you want to move. PullSwitchView can host only one direct child. And the footer and header must implements FooterImpl or HeaderImpl. The pullSwitchView will add header and footer for you by default. But you can set your custom view which must implements the Impl.
+You can create the single fragment or view by the **PullSwitchView**, add the layout. set the **PullSwitchView** as your layou which layout you want to move. PullSwitchView can host only one direct child. And the footer and header must implements FooterImpl or HeaderImpl. The pullSwitchView will add header and footer for you by default. But you can set your custom view which must implements the Impl.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <com.loopeer.android.librarys.PullSwitchView xmlns:android="http://schemas.android.com/apk/res/android"
