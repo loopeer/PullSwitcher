@@ -3,6 +3,8 @@
 This library is learn from [liaohuqiu/android-Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh) and learn the 
 pull to next layout effect from [zzz40500/Android-PullToNextLayout](https://github.com/zzz40500/Android-PullToNextLayout), this fragments adapter make the fragment hide or show in the activity. So, you can keep data in those.
 
+I hava use three example fragment contains the recyclerview, scrollview and viewpager. And you can use others by yourself. But don't forget to add that view to **checkContentCanBePulledUp(View view)** and **checkContentCanBePulledDown(View view)**
+
 Screeshot
 ====
 ![](/screenshot/screenshot.gif)
