@@ -15,10 +15,10 @@ public class PullIndicator {
     private int mHeaderHeight;
     private int mFooterHeight;
     private int mStartSwitchOffset = 200;
-    private HeaderImpl mHeaderImpl;
-    private FooterImpl mFooterImpl;
+    private Header mHeaderImpl;
+    private Footer mFooterImpl;
     private ShowText mShowText;
-    private SwitcherHolderImpl mSwitchHolderImpl;
+    private SwitcherHolder mSwitchHolderImpl;
 
     public int getContentHeight() {
         return mContentHeight;
@@ -160,19 +160,19 @@ public class PullIndicator {
         return Math.abs(getCurrentPosY()) >= getStartSwitchOffset();
     }
 
-    public FooterImpl getFooterImpl() {
+    public Footer getFooterImpl() {
         return mFooterImpl;
     }
 
-    public void setFooterImpl(FooterImpl footerImpl) {
+    public void setFooterImpl(Footer footerImpl) {
         this.mFooterImpl = footerImpl;
     }
 
-    public HeaderImpl getHeaderImpl() {
+    public Header getHeaderImpl() {
         return mHeaderImpl;
     }
 
-    public void setHeaderImpl(HeaderImpl headerImpl) {
+    public void setHeaderImpl(Header headerImpl) {
         this.mHeaderImpl = headerImpl;
     }
 
@@ -180,7 +180,7 @@ public class PullIndicator {
         mShowText = showText;
     }
 
-    public void setSwitchHolderImpl(SwitcherHolderImpl switchHolderImpl) {
+    public void setSwitchHolderImpl(SwitcherHolder switchHolderImpl) {
         mSwitchHolderImpl = switchHolderImpl;
     }
 

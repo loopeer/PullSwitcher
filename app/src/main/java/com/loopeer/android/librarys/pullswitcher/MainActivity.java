@@ -5,14 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.loopeer.android.librarys.SwitcherAdapter;
-import com.loopeer.android.librarys.SwitcherHolder;
+import com.loopeer.android.librarys.SwitcherHolderImpl;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private FrameLayout containerLayout;
     private SwitcherAdapter adapter;
-    private SwitcherHolder mSwitchHolder;
+    private SwitcherHolderImpl mSwitchHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         containerLayout = (FrameLayout) findViewById(R.id.container);
 
-        mSwitchHolder = new SwitcherHolder(containerLayout);
+        mSwitchHolder = new SwitcherHolderImpl(containerLayout);
         adapter = new TestSwitcherAdapter(getSupportFragmentManager(), mSwitchHolder);
         mSwitchHolder.setAdapter(adapter);
     }

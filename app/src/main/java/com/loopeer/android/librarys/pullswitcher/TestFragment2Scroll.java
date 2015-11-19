@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
-import com.loopeer.android.librarys.SwitcherHolderImpl;
+import com.loopeer.android.librarys.SwitcherHolder;
 
 public class TestFragment2Scroll extends Fragment implements PullHandler {
 
-    private SwitcherHolderImpl switcherHolder;
+    private SwitcherHolder switcherHolder;
 
-    public static TestFragment2Scroll newInstance(SwitcherHolderImpl switcherHolder) {
+    public static TestFragment2Scroll newInstance(SwitcherHolder switcherHolder) {
         TestFragment2Scroll testFragment = new TestFragment2Scroll();
         testFragment.switcherHolder = switcherHolder;
         return testFragment;

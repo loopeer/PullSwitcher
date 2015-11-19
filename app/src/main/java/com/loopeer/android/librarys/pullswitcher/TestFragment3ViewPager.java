@@ -11,20 +11,20 @@ import android.view.ViewGroup;
 
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
-import com.loopeer.android.librarys.SwitcherHolderImpl;
+import com.loopeer.android.librarys.SwitcherHolder;
 
 import java.util.List;
 
 public class TestFragment3ViewPager extends Fragment {
 
-    private SwitcherHolderImpl switcherHolder;
+    private SwitcherHolder switcherHolder;
     private PullSwitchView pullSwitchView;
 
     private TestPagerAdapter mAdapter;
     private ViewPager mViewpager;
     private TabLayout mTabs;
 
-    public static TestFragment3ViewPager newInstance(SwitcherHolderImpl switcherHolder) {
+    public static TestFragment3ViewPager newInstance(SwitcherHolder switcherHolder) {
         TestFragment3ViewPager testFragment = new TestFragment3ViewPager();
         testFragment.switcherHolder = switcherHolder;
         return testFragment;

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
 
-public class DefaultFooter extends TextView implements FooterImpl {
+public class DefaultFooter extends TextView implements Footer {
     private static final String TAG = "DefaultFooter";
 
     public DefaultFooter(Context context) {

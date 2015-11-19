@@ -1,6 +1,6 @@
 package com.loopeer.android.librarys;
 
-public interface HeaderFooterImpl {
+public interface HeaderFooter {
 
     void onMoveStart(int currentPosY, int startSwitchOffset, CharSequence string);
 

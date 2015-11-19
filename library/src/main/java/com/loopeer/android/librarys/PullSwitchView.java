@@ -17,7 +17,7 @@ public class PullSwitchView extends ViewGroup {
     private PullIndicator mPullIndicator;
     private ScrollChecker mScrollChecker;
     private PullHandler mPullHandler;
-    private SwitcherHolderImpl mSwitcherHolder;
+    private SwitcherHolder mSwitcherHolder;
     private boolean mDisableWhenHorizontalMove = false;
     private boolean mPreventForHorizontal = false;
     private int mPagingTouchSlop;
@@ -62,11 +62,11 @@ public class PullSwitchView extends ViewGroup {
         int contentNumCount = 0;
         for (int i = 0; i < childCount; i++) {
             View view = getChildAt(i);
-            if (view instanceof HeaderImpl) {
+            if (view instanceof Header) {
                 mHeaderView = view;
                 continue;
             }
-            if (view instanceof FooterImpl) {
+            if (view instanceof Footer) {
                 mFootView = view;
                 continue;
             }
@@ -299,7 +299,7 @@ public class PullSwitchView extends ViewGroup {
         }
     }
 
-    public void setSwitcherHolder(SwitcherHolderImpl switcherHolder) {
+    public void setSwitcherHolder(SwitcherHolder switcherHolder) {
         if (mSwitcherHolder == null) initShowText(switcherHolder);
         mSwitcherHolder = switcherHolder;
         mPullIndicator.setSwitchHolderImpl(mSwitcherHolder);
@@ -314,7 +314,7 @@ public class PullSwitchView extends ViewGroup {
     }
 
     public void setHeaderView(View header) {
-        if (!(header instanceof HeaderImpl)) {
+        if (!(header instanceof Header)) {
             throw new IllegalStateException("header must implements HeaderImpl");
         }
         if (mHeaderView != null && header != null && mHeaderView != header) {
@@ -326,12 +326,12 @@ public class PullSwitchView extends ViewGroup {
             header.setLayoutParams(lp);
         }
         mHeaderView = header;
-        mPullIndicator.setHeaderImpl((HeaderImpl) mHeaderView);
+        mPullIndicator.setHeaderImpl((Header) mHeaderView);
         addView(header);
     }
 
     public void setFooterView(View footer) {
-        if (!(footer instanceof FooterImpl)) {
+        if (!(footer instanceof Footer)) {
             throw new IllegalStateException("footer must implements FooterImpl");
         }
         if (mFootView != null && footer != null && mFootView != footer) {
@@ -343,7 +343,7 @@ public class PullSwitchView extends ViewGroup {
             footer.setLayoutParams(lp);
         }
         mFootView = footer;
-        mPullIndicator.setFooterImpl((FooterImpl) mFootView);
+        mPullIndicator.setFooterImpl((Footer) mFootView);
         addView(footer);
     }
 
@@ -351,7 +351,7 @@ public class PullSwitchView extends ViewGroup {
         mPullIndicator.setShowText(showText);
     }
 
-    private void initShowText(SwitcherHolderImpl switcherHolder) {
+    private void initShowText(SwitcherHolder switcherHolder) {
         setShowText(new PullIndicator.ShowText(
                 getResources().getString(switcherHolder != null && switcherHolder.isFirstPage() ? R.string.pull_header_first : R.string.pull_header_start_show),
                 getResources().getString(switcherHolder != null && switcherHolder.isFirstPage() ? R.string.pull_header_first : R.string.pull_header_can_switch_show),

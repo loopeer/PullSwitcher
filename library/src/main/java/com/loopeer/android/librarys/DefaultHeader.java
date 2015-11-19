@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
 
-public class DefaultHeader extends TextView implements HeaderImpl {
+public class DefaultHeader extends TextView implements Header {
 
     public DefaultHeader(Context context) {
         this(context, null);

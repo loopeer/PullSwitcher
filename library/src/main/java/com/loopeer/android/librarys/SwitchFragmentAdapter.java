@@ -10,7 +10,7 @@ public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
 
     private final FragmentManager mFragmentManager;
 
-    public SwitchFragmentAdapter(FragmentManager fm, SwitcherHolderImpl switcherHolder) {
+    public SwitchFragmentAdapter(FragmentManager fm, SwitcherHolder switcherHolder) {
         mFragmentManager = fm;
         setOnPageChangeListener(switcherHolder);
     }
@@ -22,7 +22,7 @@ public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
 
     @Override
     public void replaceItem(ViewGroup container, int prePosition, int newPosition) {
-        FragmentTransaction  mCurTransaction = mFragmentManager.beginTransaction();
+        FragmentTransaction mCurTransaction = mFragmentManager.beginTransaction();
 
         if (prePosition == newPosition) {
             Fragment fragment = createFragment(container, newPosition);
@@ -47,7 +47,7 @@ public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
     }
 
     public void switchContent(ViewGroup content, Fragment from, Fragment to, int prePosition, int newPosition) {
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
         if (newPosition >= prePosition) {
             transaction.setCustomAnimations(R.anim.in_from_bottom, R.anim.out_to_top,
                     R.anim.in_from_top, R.anim.out_to_bottom);
@@ -55,11 +55,11 @@ public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
             transaction.setCustomAnimations(R.anim.in_from_top, R.anim.out_to_bottom,
                     R.anim.in_from_top, R.anim.out_to_bottom);
         }
-            if (!to.isAdded()) {
-                transaction.hide(from).add(content.getId(), to, makeFragmentName(content.getId(), newPosition)).commit();
-            } else {
-                transaction.hide(from).show(to).commit();
-            }
+        if (!to.isAdded()) {
+            transaction.hide(from).add(content.getId(), to, makeFragmentName(content.getId(), newPosition)).commit();
+        } else {
+            transaction.hide(from).show(to).commit();
+        }
 
     }
 

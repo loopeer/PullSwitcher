@@ -12,18 +12,18 @@ import android.view.ViewGroup;
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
-import com.loopeer.android.librarys.SwitcherHolderImpl;
+import com.loopeer.android.librarys.SwitcherHolder;
 
 public class TestFragment1Recycler extends Fragment implements PullHandler {
 
-    private SwitcherHolderImpl switcherHolder;
+    private SwitcherHolder switcherHolder;
     private PullSwitchView pullSwitchView;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static TestFragment1Recycler newInstance(SwitcherHolderImpl switcherHolder) {
+    public static TestFragment1Recycler newInstance(SwitcherHolder switcherHolder) {
         TestFragment1Recycler testFragment = new TestFragment1Recycler();
         testFragment.switcherHolder = switcherHolder;
         return testFragment;
