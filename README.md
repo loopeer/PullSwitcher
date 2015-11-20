@@ -116,6 +116,30 @@ If you want go back by press the back key, you should add this in activity:
     }
 ```
 
+####You can add switcher listener
+```java
+
+public class TestFragment1Recycler extends Fragment implements PullHandler, SwitchListener {
+    ...
+
+    @Override
+    public void onPagePause() {
+        Toast.makeText(getActivity(), "test recycler pause", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPageResume() {
+        Toast.makeText(getActivity(), "test recycler resume", Toast.LENGTH_SHORT).show();
+    }
+}
+```
+
+####You can add your custom footer and header view  
+create your custom view and implements the footer
+```java 
+        pullSwitchView.setFooterView(new TestCustomFooterView(getActivity()));
+
+```
 
 License
 ====
