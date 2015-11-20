@@ -49,6 +49,7 @@ public class TestFragment1Recycler extends Fragment implements PullHandler, Swit
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
         pullSwitchView.setPullHandler(this);
         pullSwitchView.setSwitcherHolder(switcherHolder);
+        pullSwitchView.setFooterView(new TestCustomFooterView(getActivity()));
     }
 
     @Override
