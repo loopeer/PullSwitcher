@@ -60,7 +60,18 @@ public abstract class SwitchFragmentAdapter extends SwitcherAdapter {
         } else {
             transaction.hide(from).show(to).commit();
         }
+        checkAndDispatchSwitchListener(from, to);
 
+    }
+
+    private void checkAndDispatchSwitchListener(Fragment from, Fragment to) {
+        if (from instanceof SwitchListener) {
+            ((SwitchListener) from).onPagePause();
+        }
+
+        if (to instanceof SwitchListener) {
+            ((SwitchListener) to).onPageResume();
+        }
     }
 
     private Fragment retrieveFromCache(ViewGroup view, int menuItem) {

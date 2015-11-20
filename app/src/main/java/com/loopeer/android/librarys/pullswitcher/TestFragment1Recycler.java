@@ -8,13 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.loopeer.android.librarys.PullDefaultHandler;
 import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
+import com.loopeer.android.librarys.SwitchListener;
 import com.loopeer.android.librarys.SwitcherHolder;
 
-public class TestFragment1Recycler extends Fragment implements PullHandler {
+public class TestFragment1Recycler extends Fragment implements PullHandler, SwitchListener {
 
     private SwitcherHolder switcherHolder;
     private PullSwitchView pullSwitchView;
@@ -80,6 +82,16 @@ public class TestFragment1Recycler extends Fragment implements PullHandler {
                 " which makes it faster and easier to add cast to your Android app.",
         });
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onPagePause() {
+        Toast.makeText(getActivity(), "test recycler pause", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPageResume() {
+        Toast.makeText(getActivity(), "test recycler resume", Toast.LENGTH_SHORT).show();
     }
 }
 
