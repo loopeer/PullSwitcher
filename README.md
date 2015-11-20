@@ -9,6 +9,14 @@ Screeshot
 ====
 ![](/screenshot/screenshot.gif)
 
+Installation
+====
+```groovy
+dependencies {
+    compile 'com.loopeer.library:pullswitcherview:1.0.3'
+}
+```
+
 Usage
 ====
 ###1. Add adapter and holder in activity
