@@ -21,6 +21,8 @@ public class PullSwitchView extends ViewGroup {
     private boolean mDisableWhenHorizontalMove = false;
     private boolean mPreventForHorizontal = false;
     private int mPagingTouchSlop;
+    private MotionEvent mLastMoveEvent;
+    private boolean mHasSendCancelEvent = false;
     private int mDurationToCloseHeader = getResources().getInteger(R.integer.pull_switch_millms);
 
     public PullSwitchView(Context context) {
@@ -184,6 +186,7 @@ public class PullSwitchView extends ViewGroup {
                 if (mPullIndicator.hasLeftStartPosition()) {
                     if (mPullIndicator.hasMovedAfterPressedDown()) {
                         tryToSwitch();
+                        sendCancelEvent();
                         return true;
                     }
                     return dispatchTouchEventSupper(e);
@@ -191,6 +194,7 @@ public class PullSwitchView extends ViewGroup {
                     return dispatchTouchEventSupper(e);
                 }
             case MotionEvent.ACTION_DOWN:
+                mHasSendCancelEvent = false;
                 mPullIndicator.onPressDown(e.getX(), e.getY());
                 mScrollChecker.abortIfWorking();
 
@@ -199,6 +203,7 @@ public class PullSwitchView extends ViewGroup {
                 dispatchTouchEventSupper(e);
                 return true;
             case MotionEvent.ACTION_MOVE:
+                mLastMoveEvent = e;
                 mPullIndicator.onMove(e.getX(), e.getY());
                 float offsetY = mPullIndicator.getOffsetY();
                 float offsetX = mPullIndicator.getOffsetX();
@@ -255,7 +260,18 @@ public class PullSwitchView extends ViewGroup {
             return;
         }
 
+        boolean isUnderTouch = mPullIndicator.isUnderTouch();
+
+        if (isUnderTouch && !mHasSendCancelEvent && mPullIndicator.hasMovedAfterPressedDown()) {
+            mHasSendCancelEvent = true;
+            sendCancelEvent();
+        }
+
         applySwitchShowText();
+
+        if (isUnderTouch) {
+            sendDownEvent();
+        }
 
         mHeaderView.offsetTopAndBottom(change);
         mContent.offsetTopAndBottom(change);
@@ -357,7 +373,22 @@ public class PullSwitchView extends ViewGroup {
                 getResources().getString(switcherHolder != null && switcherHolder.isFirstPage() ? R.string.pull_header_first : R.string.pull_header_can_switch_show),
                 getResources().getString(switcherHolder != null && switcherHolder.isLastPage() ? R.string.pull_footer_last : R.string.pull_footer_start_show),
                 getResources().getString(switcherHolder != null && switcherHolder.isLastPage() ? R.string.pull_footer_last : R.string.pull_footer_can_switch_show)
-                ));
+        ));
+    }
+
+    private void sendCancelEvent() {
+        if (mLastMoveEvent == null) {
+            return;
+        }
+        MotionEvent last = mLastMoveEvent;
+        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime() + ViewConfiguration.getLongPressTimeout(), MotionEvent.ACTION_CANCEL, last.getX(), last.getY(), last.getMetaState());
+        dispatchTouchEventSupper(e);
+    }
+
+    private void sendDownEvent() {
+        final MotionEvent last = mLastMoveEvent;
+        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime(), MotionEvent.ACTION_DOWN, last.getX(), last.getY(), last.getMetaState());
+        dispatchTouchEventSupper(e);
     }
 
     @Override
