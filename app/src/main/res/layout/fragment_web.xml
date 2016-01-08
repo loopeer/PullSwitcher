@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.android.librarys.PullSwitchView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/switcher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dddddd">
+
+    <WebView
+        android:id="@+id/web_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+</com.loopeer.android.librarys.PullSwitchView>
