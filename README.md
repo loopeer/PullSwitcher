@@ -132,6 +132,36 @@ create your custom view and implements the footer
         pullSwitchView.setFooterView(new TestCustomFooterView(getActivity()));
 
 ```
+and the custom footer can set your pull tips 
+```
+public class TestCustomFooterView extends TextView implements Footer{
+
+    public TestCustomFooterView(Context context) {
+        this(context, null);
+    }
+
+    public TestCustomFooterView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public TestCustomFooterView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        setPadding(20, 20, 20, 20);
+        setGravity(Gravity.CENTER);
+    }
+
+    @Override
+    public void onMoveStart(int currentPosY, int startSwitchOffset, CharSequence string) {
+        setText("Test custom footer text onMoveStart");
+    }
+
+    @Override
+    public void onCanStartSwitch(int currentPosY, int startSwitchOffset, CharSequence string) {
+        setText("Test custom footer text onCanStartSwitch");
+
+    }
+}
+```
 
 License
 ====
