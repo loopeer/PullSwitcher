@@ -9,10 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.PullDefaultHandler;
-import com.loopeer.android.librarys.PullHandler;
-
-public class TestFragment4 extends Fragment implements PullHandler {
+public class TestFragment4 extends Fragment {
 
     private int position;
 
@@ -41,16 +38,6 @@ public class TestFragment4 extends Fragment implements PullHandler {
         super.onViewCreated(view, savedInstanceState);
 
         initTestRecyclerView(view);
-    }
-
-    @Override
-    public boolean checkCanDoPullDown(View content) {
-        return PullDefaultHandler.checkContentCanBePulledDown(mRecyclerView);
-    }
-
-    @Override
-    public boolean checkCanDoPullUp(View content) {
-        return PullDefaultHandler.checkContentCanBePulledUp(mRecyclerView);
     }
 
     private void initTestRecyclerView(View view) {

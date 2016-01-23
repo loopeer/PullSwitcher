@@ -10,15 +10,13 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-public class PullSwitchView extends ViewGroup implements NestedScrollingParent{
-    public static final String TAG = "PullSwitchView";
+public class PullSwitchView extends ViewGroup implements NestedScrollingParent {
 
     private View mHeaderView;
     private View mFootView;
     private View mContent;
     private PullIndicator mPullIndicator;
     private ScrollChecker mScrollChecker;
-    private PullHandler mPullHandler;
     private SwitcherHolder mSwitcherHolder;
     private boolean mDisableWhenHorizontalMove = false;
     private boolean mPreventForHorizontal = false;
@@ -97,7 +95,6 @@ public class PullSwitchView extends ViewGroup implements NestedScrollingParent{
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
         mScrollTarget = target;
-        //return super.onStartNestedScroll(child, target, nestedScrollAxes);
         return false;
     }
 
@@ -236,14 +233,11 @@ public class PullSwitchView extends ViewGroup implements NestedScrollingParent{
     }
 
     private boolean canMovePos(float offsetY) {
-        if (mPullHandler == null) return false;
         boolean moveDown = offsetY > 0;
         boolean moveUp = !moveDown;
-        /*mPullHandler.checkCanDoPullUp(mContent)*/
         return (moveUp && checkCanDoPullUp()) ||
-/*mPullHandler.checkCanDoPullDown(mContent)*/
-                        (moveDown && checkCanDoPullDown()) ||
-                        mPullIndicator.hasLeftStartPosition();
+                (moveDown && checkCanDoPullDown()) ||
+                mPullIndicator.hasLeftStartPosition();
     }
 
     private boolean checkCanDoPullUp() {
@@ -263,12 +257,12 @@ public class PullSwitchView extends ViewGroup implements NestedScrollingParent{
     public boolean dispatchTouchEventSupper(MotionEvent e) {
         return super.dispatchTouchEvent(e);
     }
-    
+
     private void movePos(float deltaY) {
 
         int to = mPullIndicator.getCurrentPosY() + (int) deltaY;
 
-        if (isReDirect(to)){
+        if (isReDirect(to)) {
             to = 0;
         }
 
@@ -345,10 +339,6 @@ public class PullSwitchView extends ViewGroup implements NestedScrollingParent{
         if (mSwitcherHolder == null) initShowText(switcherHolder);
         mSwitcherHolder = switcherHolder;
         mPullIndicator.setSwitchHolderImpl(mSwitcherHolder);
-    }
-
-    public void setPullHandler(PullHandler ptrHandler) {
-        mPullHandler = ptrHandler;
     }
 
     public void disableWhenHorizontalMove(boolean disable) {

@@ -10,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.loopeer.android.librarys.PullDefaultHandler;
-import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
 import com.loopeer.android.librarys.SwitchListener;
 import com.loopeer.android.librarys.SwitcherHolder;
 
-public class TestFragment1Recycler extends Fragment implements PullHandler, SwitchListener {
+public class TestFragment1Recycler extends Fragment implements SwitchListener {
 
     private SwitcherHolder switcherHolder;
     private PullSwitchView pullSwitchView;
@@ -47,19 +45,8 @@ public class TestFragment1Recycler extends Fragment implements PullHandler, Swit
 
     private void initSwitchView(View view) {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
-        pullSwitchView.setPullHandler(this);
         pullSwitchView.setSwitcherHolder(switcherHolder);
         pullSwitchView.setFooterView(new TestCustomFooterView(getActivity()));
-    }
-
-    @Override
-    public boolean checkCanDoPullDown(View content) {
-        return PullDefaultHandler.checkContentCanBePulledDown(mRecyclerView);
-    }
-
-    @Override
-    public boolean checkCanDoPullUp(View content) {
-        return PullDefaultHandler.checkContentCanBePulledUp(mRecyclerView);
     }
 
     private void initTestRecyclerView(View view) {

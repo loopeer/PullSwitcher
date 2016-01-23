@@ -9,11 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
 import com.loopeer.android.librarys.SwitcherHolder;
-
-import java.util.List;
 
 public class TestFragment3ViewPager extends Fragment {
 
@@ -50,48 +47,6 @@ public class TestFragment3ViewPager extends Fragment {
         mAdapter = new TestPagerAdapter(getChildFragmentManager());
         mViewpager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mViewpager);
-        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                setCurrentPullHandler(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        mViewpager.post(new Runnable() {
-            @Override
-            public void run() {
-                setCurrentPullHandler(0);
-            }
-        });
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            setCurrentPullHandler(mViewpager.getCurrentItem());
-        }
-    }
-
-    private void setCurrentPullHandler(int position) {
-        List<Fragment> fragments = getChildFragmentManager().getFragments();
-        Fragment resultFragment = null;
-        for (Fragment fragment : fragments) {
-            if (((TestFragment4)fragment).getPosition() == position) {
-                resultFragment = fragment;
-            }
-        }
-        if (resultFragment == null) resultFragment = fragments.get(0);
-        pullSwitchView.setPullHandler((PullHandler) resultFragment);
     }
 
     private void initSwitchView(View view) {

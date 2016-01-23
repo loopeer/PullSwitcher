@@ -7,12 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.loopeer.android.librarys.PullDefaultHandler;
-import com.loopeer.android.librarys.PullHandler;
 import com.loopeer.android.librarys.PullSwitchView;
 import com.loopeer.android.librarys.SwitcherHolder;
 
-public class TestFragment2Scroll extends Fragment implements PullHandler {
+public class TestFragment2Scroll extends Fragment {
 
     private SwitcherHolder switcherHolder;
 
@@ -33,18 +31,6 @@ public class TestFragment2Scroll extends Fragment implements PullHandler {
         super.onViewCreated(view, savedInstanceState);
 
         PullSwitchView pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
-        pullSwitchView.setPullHandler(this);
         pullSwitchView.setSwitcherHolder(switcherHolder);
     }
-
-    @Override
-    public boolean checkCanDoPullDown(View content) {
-        return PullDefaultHandler.checkContentCanBePulledDown(content);
-    }
-
-    @Override
-    public boolean checkCanDoPullUp(View content) {
-        return PullDefaultHandler.checkContentCanBePulledUp(content);
-    }
-
 }
