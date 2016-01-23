@@ -13,7 +13,7 @@ Installation
 ====
 ```groovy
 dependencies {
-    compile 'com.loopeer.library:pullswitcherview:1.0.3'
+    compile 'com.loopeer.library:pullswitcherview:1.0.5'
 }
 ```
 
