@@ -10,8 +10,8 @@ public abstract class SwitcherAdapter {
 
     public abstract int getCount();
 
-    public void setOnPageChangeListener(SwitcherHolder listener) {
-        this.switcherHolder = listener;
+    public void setOnPageChangeListener(SwitcherHolder holder) {
+        this.switcherHolder = holder;
     }
 
     public SwitcherHolder getSwitcherHolder() {

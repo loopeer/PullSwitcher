@@ -12,7 +12,7 @@ public class TestPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return TestFragment4.newInstance(position);
+        return TestFragment4.newInstance();
     }
 
     @Override

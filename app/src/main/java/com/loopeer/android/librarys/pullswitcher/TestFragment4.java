@@ -11,20 +11,13 @@ import android.view.ViewGroup;
 
 public class TestFragment4 extends Fragment {
 
-    private int position;
-
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static TestFragment4 newInstance(int position) {
+    public static TestFragment4 newInstance() {
         TestFragment4 testFragment = new TestFragment4();
-        testFragment.position = position;
         return testFragment;
-    }
-
-    public int getPosition() {
-        return position;
     }
 
     @Nullable

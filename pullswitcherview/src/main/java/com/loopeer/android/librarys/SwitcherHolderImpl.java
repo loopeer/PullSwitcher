@@ -18,6 +18,7 @@ public class SwitcherHolderImpl implements SwitcherHolder {
     public void setAdapter(SwitcherAdapter adapter) {
         mAdapter = adapter;
         mPreCurrentItem = 0;
+        adapter.setOnPageChangeListener(this);
         setCurrentItem(0);
     }
 

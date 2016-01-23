@@ -4,12 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.loopeer.android.librarys.SwitchFragmentAdapter;
-import com.loopeer.android.librarys.SwitcherHolderImpl;
 
 public class TestSwitcherAdapter extends SwitchFragmentAdapter {
 
-    public TestSwitcherAdapter(FragmentManager fm, SwitcherHolderImpl switchHolder) {
-        super(fm, switchHolder);
+    public TestSwitcherAdapter(FragmentManager fm) {
+        super(fm);
     }
 
     @Override

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class TestRecyclerAdapter  extends RecyclerView.Adapter<TestRecyclerAdapter.ViewHolder> {
+public class TestRecyclerAdapter extends RecyclerView.Adapter<TestRecyclerAdapter.ViewHolder> {
     private String[] mDataset;
 
 
@@ -26,7 +26,7 @@ public class TestRecyclerAdapter  extends RecyclerView.Adapter<TestRecyclerAdapt
     // Create new views (invoked by the layout manager)
     @Override
     public TestRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                             int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_test_item, parent, false);
@@ -40,6 +40,7 @@ public class TestRecyclerAdapter  extends RecyclerView.Adapter<TestRecyclerAdapt
         holder.mTextView.setText(mDataset[position]);
 
     }
+
     @Override
     public int getItemCount() {
         return mDataset.length;

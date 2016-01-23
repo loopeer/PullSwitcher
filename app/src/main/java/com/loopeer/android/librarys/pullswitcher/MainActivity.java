@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         containerLayout = (FrameLayout) findViewById(R.id.container);
 
         mSwitchHolder = new SwitcherHolderImpl(containerLayout);
-        adapter = new TestSwitcherAdapter(getSupportFragmentManager(), mSwitchHolder);
+        adapter = new TestSwitcherAdapter(getSupportFragmentManager());
         mSwitchHolder.setAdapter(adapter);
     }
 
