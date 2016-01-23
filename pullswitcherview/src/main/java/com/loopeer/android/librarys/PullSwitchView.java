@@ -306,27 +306,40 @@ public class PullSwitchView extends ViewGroup implements NestedScrollingParent {
     private void tryToSwitch() {
         if (!mPullIndicator.isUnderTouch() && Math.abs(mPullIndicator.getCurrentPosY()) >= mPullIndicator.getStartSwitchOffset()) {
             if (mPullIndicator.getCurrentPosY() > 0) {
+                checkFirstPageToCancelDelay();
                 mSwitcherHolder.onPrePage();
             } else {
+                checkLastPageToCancelDelay();
                 mSwitcherHolder.onNextPage();
             }
-            checkFirstOrLastToCancelDelay();
         } else {
             tryScrollBackToTop();
         }
     }
 
-    private void checkFirstOrLastToCancelDelay() {
-        if (!mSwitcherHolder.isFirstPage() && !mSwitcherHolder.isLastPage()) {
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    tryScrollBackToTop();
-                }
-            }, getResources().getInteger(R.integer.pull_switch_millms));
+    private void checkFirstPageToCancelDelay() {
+        if (!mSwitcherHolder.isFirstPage()) {
+            delayToScrollBack();
         } else {
             tryScrollBackToTop();
         }
+    }
+
+    private void checkLastPageToCancelDelay() {
+        if (!mSwitcherHolder.isLastPage()) {
+            delayToScrollBack();
+        } else {
+            tryScrollBackToTop();
+        }
+    }
+
+    private void delayToScrollBack() {
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tryScrollBackToTop();
+            }
+        }, getResources().getInteger(R.integer.pull_switch_millms));
     }
 
     private void tryScrollBackToTop() {
