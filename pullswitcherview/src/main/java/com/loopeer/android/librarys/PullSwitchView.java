@@ -1,6 +1,8 @@
 package com.loopeer.android.librarys;
 
 import android.content.Context;
+import android.support.v4.view.NestedScrollingParent;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,7 +10,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-public class PullSwitchView extends ViewGroup {
+public class PullSwitchView extends ViewGroup implements NestedScrollingParent{
     public static final String TAG = "PullSwitchView";
 
     private View mHeaderView;
@@ -24,6 +26,7 @@ public class PullSwitchView extends ViewGroup {
     private MotionEvent mLastMoveEvent;
     private boolean mHasSendCancelEvent = false;
     private int mDurationToCloseHeader = getResources().getInteger(R.integer.pull_switch_millms);
+    private View mScrollTarget;
 
     public PullSwitchView(Context context) {
         this(context, null);
@@ -89,6 +92,13 @@ public class PullSwitchView extends ViewGroup {
             throw new IllegalStateException("PullSwitchView can host only one direct child, " +
                     "and the footer and header must implements FooterImpl or HeaderImpl");
         }
+    }
+
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+        mScrollTarget = target;
+        //return super.onStartNestedScroll(child, target, nestedScrollAxes);
+        return false;
     }
 
     private void createDefaultFooter() {
@@ -229,9 +239,25 @@ public class PullSwitchView extends ViewGroup {
         if (mPullHandler == null) return false;
         boolean moveDown = offsetY > 0;
         boolean moveUp = !moveDown;
-        return (moveUp && mPullHandler.checkCanDoPullUp(mContent)) ||
-                        (moveDown && mPullHandler.checkCanDoPullDown(mContent)) ||
+        /*mPullHandler.checkCanDoPullUp(mContent)*/
+        return (moveUp && checkCanDoPullUp()) ||
+/*mPullHandler.checkCanDoPullDown(mContent)*/
+                        (moveDown && checkCanDoPullDown()) ||
                         mPullIndicator.hasLeftStartPosition();
+    }
+
+    private boolean checkCanDoPullUp() {
+        if (mScrollTarget != null) {
+            return !ViewCompat.canScrollVertically(mScrollTarget, 1);
+        }
+        return true;
+    }
+
+    private boolean checkCanDoPullDown() {
+        if (mScrollTarget != null) {
+            return !ViewCompat.canScrollVertically(mScrollTarget, -1);
+        }
+        return true;
     }
 
     public boolean dispatchTouchEventSupper(MotionEvent e) {

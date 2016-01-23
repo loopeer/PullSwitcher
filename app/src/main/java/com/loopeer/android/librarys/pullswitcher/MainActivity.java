@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         containerLayout = (FrameLayout) findViewById(R.id.container);
 
         mSwitchHolder = new SwitcherHolderImpl(containerLayout);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#dddddd">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
@@ -61,6 +61,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </com.loopeer.android.librarys.PullSwitchView>
