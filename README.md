@@ -133,7 +133,7 @@ create your custom view and implements the footer
 
 ```
 and the custom footer can set your pull tips 
-```
+```java
 public class TestCustomFooterView extends TextView implements Footer{
 
     public TestCustomFooterView(Context context) {
