@@ -3,7 +3,7 @@
 This library is learn from [liaohuqiu/android-Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh) and learn the 
 pull to next layout effect from [zzz40500/Android-PullToNextLayout](https://github.com/zzz40500/Android-PullToNextLayout), this fragments adapter make the fragment hide or show in the activity. So, you can keep data in those.
 
-I hava use three example fragment contains the recyclerview, scrollview and viewpager. And you can use others by yourself. But don't forget to add that view to **checkContentCanBePulledUp(View view)** and **checkContentCanBePulledDown(View view)**
+I hava use three example fragment contains the recyclerview, scrollview and viewpager. And you can use others by yourself. 
 
 Screeshot
 ====
@@ -27,7 +27,7 @@ Usage
     
     ...{
         mSwitchHolder = new SwitcherHolder(containerLayout);
-        adapter = new TestSwitcherAdapter(getSupportFragmentManager(), mSwitchHolder);
+        adapter = new TestSwitcherAdapter(getSupportFragmentManager());
         mSwitchHolder.setAdapter(adapter);
         }
 
@@ -36,8 +36,8 @@ Then, create your custom switcher adapter.
 ```java
 public class TestSwitcherAdapter extends SwitchFragmentAdapter {
 
-    public TestSwitcherAdapter(FragmentManager fm, SwitcherHolder switchHolder) {
-        super(fm, switchHolder);
+    public TestSwitcherAdapter(FragmentManager fm) {
+        super(fm);
     }
 
     @Override
@@ -96,25 +96,9 @@ init your pullswitchview
 ```java
     private void initSwitchView(View view) {
         pullSwitchView = (PullSwitchView) view.findViewById(R.id.switcher);
-        pullSwitchView.setPullHandler(this);
-        pullSwitchView.setSwitcherHolder(onPageChangeListener);
+        pullSwitchView.setSwitcherHolder(switcherHolder);
     }
 ```
-**setPullHandler()** to add which one you want to observe. You can set your header and footer. Can set your custom tip show text. 
-
-Make fragment implements **PullHandler**.To concrete some method as:
-```java
-@Override
-    public boolean checkCanDoPullDown(View content) {
-        return PullDefaultHandler.checkContentCanBePulledDown(mRecyclerView);
-    }
-
-    @Override
-    public boolean checkCanDoPullUp(View content) {
-        return PullDefaultHandler.checkContentCanBePulledUp(mRecyclerView);
-    }
-```
-**checkContentCanBePulledDown(View view)** The view set is which view you want to observe. The wrapper will onLayout by the view scroll status.
 
 If you want go back by press the back key, you should add this in activity:
 ```java
